@@ -1,10 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
     // ustawienia portu
@@ -24,8 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     // otwarcie portu szeregowego
     COMPORT->open(QIODeviceBase::ReadWrite);
 
-    if (COMPORT->isOpen())
-    {
+    if (COMPORT->isOpen()) {
         ui->plainTextEdit->appendPlainText("Serial connected");
     }else{
         ui->plainTextEdit->appendPlainText("Serial not connected");
@@ -38,8 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     // zamknięcie portu szeregowego
     COMPORT->close();
 
-    if (COMPORT->isOpen())
-    {
+    if (COMPORT->isOpen()) {
         ui->plainTextEdit->appendPlainText("Serial connected");
     }else{
         ui->plainTextEdit->appendPlainText("Serial not connected");
@@ -49,8 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
