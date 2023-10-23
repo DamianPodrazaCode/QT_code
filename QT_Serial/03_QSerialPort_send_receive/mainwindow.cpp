@@ -1,10 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
     COMPORT = new QSerialPort();
@@ -29,8 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(COMPORT,SIGNAL(readyRead()),this,SLOT(read_data()));
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     qInfo() << "Serial stop";
     COMPORT->close();
     if (COMPORT->isOpen()) {
