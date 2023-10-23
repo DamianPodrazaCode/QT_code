@@ -7,6 +7,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    // ustawienia portu
+    // w .pro dodać QT += serialport
     COMPORT = new QSerialPort();
     COMPORT->setPortName("COM1");
     COMPORT->setBaudRate(QSerialPort::Baud115200);
