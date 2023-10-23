@@ -9,8 +9,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     // ustawienia portu
     // w .pro dodać QT += serialport
+    // dodać #include <QSerialPort>
+    // dodać do klasy QSerialPort* COMPORT;
     COMPORT = new QSerialPort();
-    COMPORT->setPortName("COM1");
+    COMPORT->setPortName("COM3");
     COMPORT->setBaudRate(QSerialPort::Baud115200);
     COMPORT->setParity(QSerialPort::NoParity);
     COMPORT->setDataBits(QSerialPort::Data8);
@@ -19,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     qInfo() << "Serial start";
-
+    // otwarcie portu szeregowego
     COMPORT->open(QIODeviceBase::ReadWrite);
 
     if (COMPORT->isOpen())
@@ -32,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     qInfo() << "Serial stop";
-
+    // zamknięcie portu szeregowego
     COMPORT->close();
 
     if (COMPORT->isOpen())
@@ -42,6 +44,7 @@ MainWindow::MainWindow(QWidget *parent)
         qInfo() << "Serial not connected";
     }
     qInfo() << COMPORT->error();
+
 
 }
 
