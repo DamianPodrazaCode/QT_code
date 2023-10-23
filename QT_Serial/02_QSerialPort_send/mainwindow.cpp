@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     COMPORT = new QSerialPort();
-    COMPORT->setPortName("COM14");
+    COMPORT->setPortName("COM3");
     COMPORT->setBaudRate(QSerialPort::Baud115200);
     COMPORT->setParity(QSerialPort::NoParity);
     COMPORT->setDataBits(QSerialPort::Data8);
@@ -47,7 +47,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_pbSend_clicked()
 {
     if(COMPORT->isOpen()) {
-        COMPORT->write(ui->leSend->text().toLatin1() + char(10));
+        COMPORT->write(ui->leSend->text().toLatin1() + char(10));  //wysłanie komendy na port (komenda "On" włacza leda "Off" wyłącza)
     }
 }
 
