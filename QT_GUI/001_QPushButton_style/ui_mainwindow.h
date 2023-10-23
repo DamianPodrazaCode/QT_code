@@ -43,6 +43,20 @@ public:
 "	font : italic 28pt \"Arial\";\n"
 "	background : red;\n"
 "	border-radius : 10;\n"
+"}\n"
+"QPushButton::hover{\n"
+"	border: 2px solid #4CAF50;\n"
+"	color : grey;\n"
+"	font : italic 28pt \"Arial\";\n"
+"	background : red;\n"
+"	border-radius : 10;\n"
+"}\n"
+"QPushButton::pressed{\n"
+"	border : none;\n"
+"	color : white;\n"
+"	font : italic 28pt \"Arial\";\n"
+"	background : blue;\n"
+"	border-radius : 10;\n"
 "}"));
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
