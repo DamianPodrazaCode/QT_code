@@ -1,10 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
     COMPORT = new QSerialPort();
@@ -27,8 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     qInfo() << COMPORT->error();
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     qInfo() << "Serial stop";
 
     COMPORT->close();
@@ -44,8 +40,7 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow::on_pbSend_clicked()
-{
+void MainWindow::on_pbSend_clicked() {
     if(COMPORT->isOpen()) {
         COMPORT->write(ui->leSend->text().toLatin1() + char(10));  //wysłanie komendy na port (komenda "On" włacza leda "Off" wyłącza)
     }
