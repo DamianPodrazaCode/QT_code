@@ -1,14 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
-{
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
-    for (const QSerialPortInfo &portInfo : QSerialPortInfo::availablePorts())
-    {
+    for (const QSerialPortInfo &portInfo : QSerialPortInfo::availablePorts()) {
         qInfo() << "portName : " << portInfo.portName();
         qInfo() << "description : " << portInfo.description();
         qInfo() << "manufacturer : " << portInfo.manufacturer();
@@ -30,8 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     COMPORT->open(QIODeviceBase::ReadWrite);
 
-    if (COMPORT->isOpen())
-    {
+    if (COMPORT->isOpen()) {
         qInfo() << "Serial connected";
     } else {
         qInfo() << "Serial not connected";
@@ -42,8 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     COMPORT->close();
 
-    if (COMPORT->isOpen())
-    {
+    if (COMPORT->isOpen()) {
         qInfo() << "Serial connected";
     } else {
         qInfo() << "Serial not connected";
@@ -51,8 +45,7 @@ MainWindow::MainWindow(QWidget *parent)
     qInfo() << COMPORT->error();
 }
 
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow() {
     delete ui;
 }
 
