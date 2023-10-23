@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     COMPORT = new QSerialPort();
-    COMPORT->setPortName("COM14");
+    COMPORT->setPortName("COM3");
     COMPORT->setBaudRate(QSerialPort::Baud115200);
     COMPORT->setParity(QSerialPort::NoParity);
     COMPORT->setDataBits(QSerialPort::Data8);
@@ -16,9 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     COMPORT->setFlowControl(QSerialPort::NoFlowControl);
 
     qInfo() << "Serial start";
-
     COMPORT->open(QIODeviceBase::ReadWrite);
-
     if (COMPORT->isOpen()) {
         qInfo() << "Serial connected";
     } else {
@@ -26,15 +24,15 @@ MainWindow::MainWindow(QWidget *parent)
     }
     qInfo() << COMPORT->error();
 
+    // readyRead() - sygał emitowany z portu com w momencie pojawienia się nowych danych
+    // readyRead() - moja metoda do odbioru danych połączona z readyRead()
     connect(COMPORT,SIGNAL(readyRead()),this,SLOT(read_data()));
 }
 
 MainWindow::~MainWindow()
 {
     qInfo() << "Serial stop";
-
     COMPORT->close();
-
     if (COMPORT->isOpen()) {
         qInfo() << "Serial connected";
     } else {
@@ -45,27 +43,24 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
-void MainWindow::on_pbSend_clicked()
-{
+// wysyłanie komendy "On" "Off"
+void MainWindow::on_pbSend_clicked() {
     if(COMPORT->isOpen()) {
         COMPORT->write(ui->leSend->text().toLatin1() + char(10));
         COMPORT->flush();
     }
 }
 
-void MainWindow::read_data()
-{
+// odczyt danych
+void MainWindow::read_data() {
     if(COMPORT->isOpen()) {
-        while(COMPORT->bytesAvailable()){
+        while(COMPORT->bytesAvailable()) {
             dataFromSerial += COMPORT->readAll();
         }
         if (dataFromSerial.at(dataFromSerial.length()-1) == char(10)){
-           // qInfo() << "Data from serial " << dataFromSerial;
             ui->pteDataFromSerial->appendPlainText(dataFromSerial);
             dataFromSerial = "";
         }
-
     }
 }
 
