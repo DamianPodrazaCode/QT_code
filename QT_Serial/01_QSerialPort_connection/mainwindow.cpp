@@ -18,32 +18,33 @@ MainWindow::MainWindow(QWidget *parent)
     COMPORT->setDataBits(QSerialPort::Data8);
     COMPORT->setStopBits(QSerialPort::OneStop);
     COMPORT->setFlowControl(QSerialPort::NoFlowControl);
+    COMPORT->clearError();
 
-
-    qInfo() << "Serial start";
+    ui->plainTextEdit->appendPlainText("Serial start");
     // otwarcie portu szeregowego
     COMPORT->open(QIODeviceBase::ReadWrite);
 
     if (COMPORT->isOpen())
     {
-        qInfo() << "Serial connected";
+        ui->plainTextEdit->appendPlainText("Serial connected");
     }else{
-        qInfo() << "Serial not connected";
+        ui->plainTextEdit->appendPlainText("Serial not connected");
     }
-    qInfo() << COMPORT->error();
+    ui->plainTextEdit->appendPlainText(COMPORT->errorString());
+    //qInfo() << COMPORT->error();
 
 
-    qInfo() << "Serial stop";
+    ui->plainTextEdit->appendPlainText("Serial stop");
     // zamknięcie portu szeregowego
     COMPORT->close();
 
     if (COMPORT->isOpen())
     {
-        qInfo() << "Serial connected";
+        ui->plainTextEdit->appendPlainText("Serial connected");
     }else{
-        qInfo() << "Serial not connected";
+        ui->plainTextEdit->appendPlainText("Serial not connected");
     }
-    qInfo() << COMPORT->error();
+    ui->plainTextEdit->appendPlainText(COMPORT->errorString());
 
 
 }
