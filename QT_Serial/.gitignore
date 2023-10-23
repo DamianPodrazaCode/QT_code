@@ -3,3 +3,4 @@ debug
 release
 .qtc_clangd
 Makefile
+Makefile*
