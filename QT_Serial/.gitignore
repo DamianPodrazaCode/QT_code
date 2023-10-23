@@ -4,3 +4,4 @@ release
 .qtc_clangd
 Makefile
 Makefile*
+.qmakle*
