@@ -16,9 +16,9 @@ MainWindow::~MainWindow()
 void ConcurentThreadFun(MainWindow *mainW)
 {
     qInfo() << "ConcurentThreadFun - START";
-
+    int counter = 0;
     while(mainW->t_running){
-        qInfo() << "ConcurentThreadFun - RUNNING";
+        qInfo() << "ConcurentThreadFun - RUNNING" << counter++;
         QThread::msleep(500);
     }
 
