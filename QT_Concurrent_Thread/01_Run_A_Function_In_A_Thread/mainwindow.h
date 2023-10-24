@@ -26,7 +26,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
     bool t_start = false;
     QFuture<void> ConcurentThread;
 };
