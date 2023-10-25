@@ -37,6 +37,4 @@ void MainWindow::on_pb_thread_toggled(bool checked) {
     }
 }
 
-void MainWindow::update_label_thread(QString str) {
-    ui->l_thread->setText(str);
-}
+void MainWindow::update_label_thread(QString str) { ui->l_thread->setText(str); }
