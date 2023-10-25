@@ -9,6 +9,10 @@ Task::~Task() {
 }
 
 void Task::run() {
-    QThread *thread = QThread::currentThread();
-    qInfo() << "thread" << thread;
+    //    QThread *thread = QThread::currentThread();
+    //    qInfo() << "thread" << thread;
+    while (1) {
+        qInfo() << "task";
+        QThread::msleep(500);
+    }
 }
