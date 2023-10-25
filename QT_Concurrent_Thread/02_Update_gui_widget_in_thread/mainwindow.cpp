@@ -1,77 +1,39 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+void threadFun(MainWindow *mainW) {
+    while(mainW->thread_run) {
+        mainW->thread_count++;
+        emit mainW->update_label_thread_signal(QString::number(mainW->thread_count));
+        QThread::msleep(50);
+    }
+}
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
-    connect(this, SIGNAL(updateQlabel1_signal(QString)),this,SLOT(updateQlabel1_slot(QString)));
-    connect(this, SIGNAL(updateQlabel2_signal(QString)),this,SLOT(updateQlabel2_slot(QString)));
+    // płączenie wyzwalania w GUI, jeżeli tego niebędzie to po czasie przestanie działać GUI.
+    connect(this, SIGNAL(update_label_thread_signal(QString)),this,SLOT(update_label_thread(QString)));
 }
 
 MainWindow::~MainWindow() {
+    thread_run = false; // wyjście z pętli w wątku
+    ConcurentThread.waitForFinished(); // oczekiwanie na zakończenie wątku, jak tego nie będzie to wątek pozostanie uruchomiony nawet po zamknięciu aplikacji
     delete ui;
 }
 
-void MainWindow::updateQlabel1_slot(QString str) {
-    ui->label->setText(str);
-}
-
-void ConcurentThreadFun(MainWindow *mainW) {
-    qInfo() << "ConcurentThreadFun - START";
-    int counter = 0;
-    while(mainW->t_running) {
-        counter++;
-       // qInfo() << "ConcurentThreadFun - RUNNING" << counter;
-        emit mainW->updateQlabel1_signal(QString::number(counter));
-        QThread::msleep(5);
-    }
-    qInfo() << "ConcurentThreadFun - END";
-}
-
-void MainWindow::on_pushButton_clicked() {
-    if (!t_start) {
-        t_start = true;
-        ui->pushButton->setText("Stop tread 1");
-        t_running = true;
-        ConcurentThread = QtConcurrent::run(ConcurentThreadFun, this);
-        ConcurentThread.resume();
+void MainWindow::on_pb_thread_toggled(bool checked) {
+    if(checked) {
+        thread_run = true;
+        // podpięcie i uruchomienie ,funkji wątku, pierwszy par. to nazwa funkcji, drugi i następne to refer. argumentów funkcji
+        // funkcja jest urruchamiana raz, później wychodzi i umiera, więc o cykliccznoś w wewnątrz trzeba zadbać samemu
+        ConcurentThread = QtConcurrent::run(threadFun, this);
+        ui->pb_thread->setText("thread ON");
     } else {
-        t_start = false;
-        ui->pushButton->setText("Start thread 1");
-        t_running = false;
-        ConcurentThread.suspend();
-        ConcurentThread.cancel();
+        thread_run = false;
+        ui->pb_thread->setText("thread OFF");
     }
 }
 
-void MainWindow::updateQlabel2_slot(QString str) {
-    ui->label_2->setText(str);
+void MainWindow::update_label_thread(QString str){
+    ui->l_thread->setText(str);
 }
-
-void ConcurentThreadFun2(MainWindow *mainW) {
-    qInfo() << "ConcurentThreadFun2 - START";
-    int counter = 0;
-    while(mainW->t_running2) {
-        counter++;
-       // qInfo() << "ConcurentThreadFun2 - RUNNING" << counter;
-        emit mainW->updateQlabel2_signal(QString::number(counter));
-        QThread::msleep(3);
-    }
-    qInfo() << "ConcurentThreadFun2 - END";
-}
-
-void MainWindow::on_pushButton_2_clicked() {
-    if (!t_start2) {
-        t_start2 = true;
-        ui->pushButton_2->setText("Stop tread 2");
-        t_running2 = true;
-        ConcurentThread2 = QtConcurrent::run(ConcurentThreadFun2, this);
-        ConcurentThread2.resume();
-    } else {
-        t_start2 = false;
-        ui->pushButton_2->setText("Start thread 2");
-        t_running2 = false;
-        ConcurentThread2.suspend();
-        ConcurentThread2.cancel();
-    }
-}
-

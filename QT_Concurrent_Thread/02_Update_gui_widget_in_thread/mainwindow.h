@@ -19,24 +19,20 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    bool t_running = false;
-    bool t_running2 = false;
+
+    bool thread_run = false;
+    int thread_count = 0;
 
 signals:
-    void updateQlabel1_signal(QString str);
-    void updateQlabel2_signal(QString str);
+    void update_label_thread_signal(QString str);
 
 private slots:
-    void updateQlabel1_slot(QString str);
-    void updateQlabel2_slot(QString str);
-    void on_pushButton_clicked();
-    void on_pushButton_2_clicked();
+    void update_label_thread(QString str);
+    void on_pb_thread_toggled(bool checked);
 
 private:
     Ui::MainWindow *ui;
-    bool t_start = false;
+
     QFuture<void> ConcurentThread;
-    bool t_start2 = false;
-    QFuture<void> ConcurentThread2;
 };
 #endif // MAINWINDOW_H
