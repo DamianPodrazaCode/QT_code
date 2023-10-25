@@ -1,17 +1,19 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
+#include <QDebug>
 #include <QFuture>
+#include <QMainWindow>
+#include <QThread>
+#include <QWidget>
 #include <QtConcurrent>
 #include <QtCore>
 #include <QtGui>
-#include <QWidget>
-#include <QDebug>
-#include <QThread>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui {
+class MainWindow;
+}
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
@@ -65,6 +67,5 @@ private:
     QFuture<void> thread3;
     QFuture<void> thread4;
     QFuture<void> thread5;
-
 };
 #endif // MAINWINDOW_H

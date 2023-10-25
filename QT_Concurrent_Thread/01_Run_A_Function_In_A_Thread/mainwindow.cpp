@@ -11,9 +11,7 @@ void threadFun(MainWindow *mainW) {
     qInfo() << "ConcurentThreadFun - END";
 }
 
-MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
-    ui->setupUi(this);
-}
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) { ui->setupUi(this); }
 
 MainWindow::~MainWindow() {
     thread_run = false;
