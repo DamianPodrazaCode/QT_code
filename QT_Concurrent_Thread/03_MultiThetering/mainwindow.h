@@ -8,6 +8,7 @@
 #include <QtGui>
 #include <QWidget>
 #include <QDebug>
+#include <QThread>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,11 +22,18 @@ public:
     ~MainWindow();
 
     // stan wątku (włączony, wyłączony)
-    bool t1_run = false;
-    bool t2_run = false;
-    bool t3_run = false;
-    bool t4_run = false;
-    bool t5_run = false;
+    bool th1_run = false;
+    bool th2_run = false;
+    bool th3_run = false;
+    bool th4_run = false;
+    bool th5_run = false;
+
+    // liczniki dla każdego wątku
+    int th1_count = 0;
+    int th2_count = 0;
+    int th3_count = 0;
+    int th4_count = 0;
+    int th5_count = 0;
 
 signals:
     void update_l_th1_signal(QString str);
@@ -50,13 +58,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-
-    // liczniki dla każdego wątku
-    int th1_count = 0;
-    int th2_count = 0;
-    int th3_count = 0;
-    int th4_count = 0;
-    int th5_count = 0;
 
     // ConcurentThread's - uproszczona wielowątkowość w celu wyeliminowania problemu miedzysystemowego.
     QFuture<void> thread1;
