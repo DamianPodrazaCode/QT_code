@@ -19,14 +19,16 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    bool t_running = false;
+    bool thread_run = false;
+    int thread_count = 0;
 
 private slots:
-    void on_pushButton_clicked();
+
+    void on_pb_thread_toggled(bool checked);
 
 private:
     Ui::MainWindow *ui;
-    bool t_start = false;
+
     QFuture<void> ConcurentThread;
 };
 #endif // MAINWINDOW_H

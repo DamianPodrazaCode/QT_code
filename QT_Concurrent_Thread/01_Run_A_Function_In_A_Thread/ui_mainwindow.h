@@ -23,7 +23,7 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
-    QPushButton *pushButton;
+    QPushButton *pb_thread;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -34,19 +34,20 @@ public:
         MainWindow->resize(201, 120);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(10, 10, 181, 61));
+        pb_thread = new QPushButton(centralwidget);
+        pb_thread->setObjectName("pb_thread");
+        pb_thread->setGeometry(QRect(10, 10, 181, 61));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(pushButton->sizePolicy().hasHeightForWidth());
-        pushButton->setSizePolicy(sizePolicy);
-        pushButton->setBaseSize(QSize(100, 200));
+        sizePolicy.setHeightForWidth(pb_thread->sizePolicy().hasHeightForWidth());
+        pb_thread->setSizePolicy(sizePolicy);
+        pb_thread->setBaseSize(QSize(100, 200));
         QFont font;
         font.setPointSize(12);
-        pushButton->setFont(font);
-        pushButton->setAutoDefault(false);
+        pb_thread->setFont(font);
+        pb_thread->setCheckable(true);
+        pb_thread->setAutoDefault(false);
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
@@ -64,7 +65,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "Start thread", nullptr));
+        pb_thread->setText(QCoreApplication::translate("MainWindow", "thread3 OFF", nullptr));
     } // retranslateUi
 
 };

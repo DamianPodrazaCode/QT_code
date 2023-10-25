@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="pb_thread">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -41,7 +41,10 @@
      </font>
     </property>
     <property name="text">
-     <string>Start thread</string>
+     <string>thread3 OFF</string>
+    </property>
+    <property name="checkable">
+     <bool>true</bool>
     </property>
     <property name="autoDefault">
      <bool>false</bool>
