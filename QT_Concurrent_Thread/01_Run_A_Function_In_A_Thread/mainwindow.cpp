@@ -3,7 +3,7 @@
 
 void threadFun(MainWindow *mainW) {
     qInfo() << "ConcurentThreadFun - START";
-    while(mainW->thread_run) {
+    while (mainW->thread_run) {
         mainW->thread_count++;
         qInfo() << "ConcurentThreadFun - RUNNING" << mainW->thread_count;
         QThread::msleep(100);
@@ -21,8 +21,8 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
-void MainWindow::on_pb_thread_toggled(bool checked){
-    if(checked) {
+void MainWindow::on_pb_thread_toggled(bool checked) {
+    if (checked) {
         thread_run = true;
         ConcurentThread = QtConcurrent::run(threadFun, this);
         ui->pb_thread->setText("thread3 ON");
@@ -31,4 +31,3 @@ void MainWindow::on_pb_thread_toggled(bool checked){
         ui->pb_thread->setText("thread3 OFF");
     }
 }
-
