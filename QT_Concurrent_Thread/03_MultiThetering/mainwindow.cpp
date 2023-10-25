@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+//void thread1Fun(MainWindow *mainW);
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     connect(this, SIGNAL(update_l_th1_signal(QString)), this, SLOT(update_l_th1(QString)));
@@ -8,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     connect(this, SIGNAL(update_l_th3_signal(QString)), this, SLOT(update_l_th3(QString)));
     connect(this, SIGNAL(update_l_th4_signal(QString)), this, SLOT(update_l_th4(QString)));
     connect(this, SIGNAL(update_l_th5_signal(QString)), this, SLOT(update_l_th5(QString)));
+
+ //   thread1 = QtConcurrent::run(thread1Fun, this);
 }
 
 MainWindow::~MainWindow() {
