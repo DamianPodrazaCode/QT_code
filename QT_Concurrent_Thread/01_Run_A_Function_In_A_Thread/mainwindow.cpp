@@ -28,6 +28,7 @@ void MainWindow::on_pb_thread_toggled(bool checked) {
         ui->pb_thread->setText("thread3 ON");
     } else {
         thread_run = false;
+        ConcurentThread.waitForFinished();
         ui->pb_thread->setText("thread3 OFF");
     }
 }
