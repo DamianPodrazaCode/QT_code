@@ -22,7 +22,7 @@ void ConcurentThreadFun(MainWindow *mainW) {
         counter++;
        // qInfo() << "ConcurentThreadFun - RUNNING" << counter;
         emit mainW->updateQlabel1_signal(QString::number(counter));
-        QThread::msleep(50);
+        QThread::msleep(5);
     }
     qInfo() << "ConcurentThreadFun - END";
 }
@@ -54,7 +54,7 @@ void ConcurentThreadFun2(MainWindow *mainW) {
         counter++;
        // qInfo() << "ConcurentThreadFun2 - RUNNING" << counter;
         emit mainW->updateQlabel2_signal(QString::number(counter));
-        QThread::msleep(33);
+        QThread::msleep(3);
     }
     qInfo() << "ConcurentThreadFun2 - END";
 }
