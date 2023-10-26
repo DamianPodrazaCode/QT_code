@@ -29,5 +29,8 @@ private:
     int count1 = 0;
     Task *task2;
     int count2 = 0;
+
+    //Task *task3;
+
 };
 #endif // MAINWINDOW_H

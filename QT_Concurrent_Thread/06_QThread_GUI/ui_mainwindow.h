@@ -97,7 +97,7 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         pb_th1->setText(QCoreApplication::translate("MainWindow", "Thread1 On", nullptr));
-        pb_th2->setText(QCoreApplication::translate("MainWindow", "Thread1 On", nullptr));
+        pb_th2->setText(QCoreApplication::translate("MainWindow", "Thread2 On", nullptr));
         l_th1->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
         l_th2->setText(QCoreApplication::translate("MainWindow", "0", nullptr));
     } // retranslateUi

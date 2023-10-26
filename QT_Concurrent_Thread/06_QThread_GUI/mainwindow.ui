@@ -42,7 +42,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Thread1 On</string>
+         <string>Thread2 On</string>
         </property>
         <property name="checkable">
          <bool>true</bool>
