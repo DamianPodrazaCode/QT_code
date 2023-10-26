@@ -1,10 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-void th3Fun() {
-    qInfo() << QThread::currentThread();
-}
-
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     qInfo() << QThread::currentThread();
@@ -18,12 +14,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
     task2->setObjectName("task2");
     task2->count = &count2;
     connect(task2, SIGNAL(update_label(QString)), this, SLOT(update_l_th2(QString)));
-
-    // task3 = new Task(this);
-    QThread *task3 = QThread::create(th3Fun);
-    task3->setObjectName("task3");
-    task3->start();
-
 }
 
 MainWindow::~MainWindow() {
@@ -55,5 +45,5 @@ void MainWindow::on_pb_th2_toggled(bool checked) {
 }
 
 void MainWindow::update_l_th2(QString str) {
-      ui->l_th2->setText(str);
+    ui->l_th2->setText(str);
 }

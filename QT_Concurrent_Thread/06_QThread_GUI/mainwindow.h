@@ -1,8 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
 #include "task.h"
+#include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -29,8 +29,5 @@ private:
     int count1 = 0;
     Task *task2;
     int count2 = 0;
-
-    //Task *task3;
-
 };
 #endif // MAINWINDOW_H
