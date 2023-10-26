@@ -51,12 +51,14 @@ public:
         font.setPointSize(14);
         font.setBold(true);
         pb_th1->setFont(font);
+        pb_th1->setCheckable(true);
 
         gridLayout->addWidget(pb_th1, 0, 0, 1, 1);
 
         pb_th2 = new QPushButton(centralwidget);
         pb_th2->setObjectName("pb_th2");
         pb_th2->setFont(font);
+        pb_th2->setCheckable(true);
 
         gridLayout->addWidget(pb_th2, 0, 1, 1, 1);
 
