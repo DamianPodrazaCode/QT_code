@@ -6,25 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>766</width>
-    <height>281</height>
+    <width>738</width>
+    <height>220</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>10</y>
-      <width>241</width>
-      <height>101</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton{
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="styleSheet">
+         <string notr="true">QPushButton{
 	border : none;
 	color : white;
 	font : italic 28pt &quot;Arial&quot;;
@@ -45,18 +41,62 @@ QPushButton::pressed{
 	background : blue;
 	border-radius : 10;
 }</string>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-   </widget>
+        </property>
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="styleSheet">
+         <string notr="true">QPushButton{
+	border : none;
+	color : white;
+	font : italic 28pt &quot;Arial&quot;;
+	background : red;
+	border-radius : 10;
+}
+QPushButton::hover{
+	border : 2px solid #4CAF50;
+	color : grey;
+	font : italic 28pt &quot;Arial&quot;;
+	background : red;
+	border-radius : 10;
+}
+QPushButton::checked{
+	border : 2px solid #4CAF50;
+	color : red;
+	font : italic 28pt &quot;Arial&quot;;
+	background :black;
+	border-radius : 10;
+}
+QPushButton::pressed{
+	border : none;
+	color : white;
+	font : italic 28pt &quot;Arial&quot;;
+	background : blue;
+	border-radius : 10;
+}</string>
+        </property>
+        <property name="text">
+         <string>ToggleButton</string>
+        </property>
+        <property name="checkable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>766</width>
+     <width>738</width>
      <height>21</height>
     </rect>
    </property>

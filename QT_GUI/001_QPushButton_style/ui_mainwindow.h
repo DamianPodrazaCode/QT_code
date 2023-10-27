@@ -11,6 +11,8 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -23,7 +25,10 @@ class Ui_MainWindow
 {
 public:
     QWidget *centralwidget;
+    QGridLayout *gridLayout;
+    QHBoxLayout *horizontalLayout;
     QPushButton *pushButton;
+    QPushButton *pushButton_2;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -31,12 +36,15 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(766, 281);
+        MainWindow->resize(738, 220);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
+        gridLayout = new QGridLayout(centralwidget);
+        gridLayout->setObjectName("gridLayout");
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setObjectName("horizontalLayout");
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName("pushButton");
-        pushButton->setGeometry(QRect(20, 10, 241, 101));
         pushButton->setStyleSheet(QString::fromUtf8("QPushButton{\n"
 "	border : none;\n"
 "	color : white;\n"
@@ -45,7 +53,7 @@ public:
 "	border-radius : 10;\n"
 "}\n"
 "QPushButton::hover{\n"
-"	border: 2px solid #4CAF50;\n"
+"	border : 2px solid #4CAF50;\n"
 "	color : grey;\n"
 "	font : italic 28pt \"Arial\";\n"
 "	background : red;\n"
@@ -58,10 +66,50 @@ public:
 "	background : blue;\n"
 "	border-radius : 10;\n"
 "}"));
+
+        horizontalLayout->addWidget(pushButton);
+
+        pushButton_2 = new QPushButton(centralwidget);
+        pushButton_2->setObjectName("pushButton_2");
+        pushButton_2->setStyleSheet(QString::fromUtf8("QPushButton{\n"
+"	border : none;\n"
+"	color : white;\n"
+"	font : italic 28pt \"Arial\";\n"
+"	background : red;\n"
+"	border-radius : 10;\n"
+"}\n"
+"QPushButton::hover{\n"
+"	border : 2px solid #4CAF50;\n"
+"	color : grey;\n"
+"	font : italic 28pt \"Arial\";\n"
+"	background : red;\n"
+"	border-radius : 10;\n"
+"}\n"
+"QPushButton::checked{\n"
+"	border : 2px solid #4CAF50;\n"
+"	color : red;\n"
+"	font : italic 28pt \"Arial\";\n"
+"	background :black;\n"
+"	border-radius : 10;\n"
+"}\n"
+"QPushButton::pressed{\n"
+"	border : none;\n"
+"	color : white;\n"
+"	font : italic 28pt \"Arial\";\n"
+"	background : blue;\n"
+"	border-radius : 10;\n"
+"}"));
+        pushButton_2->setCheckable(true);
+
+        horizontalLayout->addWidget(pushButton_2);
+
+
+        gridLayout->addLayout(horizontalLayout, 0, 0, 1, 1);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 766, 21));
+        menubar->setGeometry(QRect(0, 0, 738, 21));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
@@ -76,6 +124,7 @@ public:
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        pushButton_2->setText(QCoreApplication::translate("MainWindow", "ToggleButton", nullptr));
     } // retranslateUi
 
 };
