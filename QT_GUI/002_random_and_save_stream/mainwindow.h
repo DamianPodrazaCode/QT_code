@@ -36,5 +36,6 @@ private:
     QTimer *timer;
     bool fSaveStrem = false;
     QFile file;
+    QTextStream strem;
 };
 #endif // MAINWINDOW_H

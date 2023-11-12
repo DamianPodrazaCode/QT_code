@@ -20,6 +20,9 @@ void MainWindow::start() {
 void MainWindow::updateTimer() {
     QString temp = QString::number(QRandomGenerator::global()->bounded(0xfff));
     ui->pte_random->appendPlainText(temp);
+    if (fSaveStrem) {
+        strem << temp << "\n";
+    }
 }
 
 void MainWindow::on_pb_random_toggled(bool checked) {
@@ -37,9 +40,11 @@ void MainWindow::on_pb_save_toggled(bool checked) {
         fSaveStrem = false;
         QString path = QFileDialog::getSaveFileName(this, "Save to file");
         file.setFileName(path);
-        if (!file.open(QIODevice::ReadWrite)) {
+        if (!file.open(QIODeviceBase::WriteOnly)) {
             qInfo() << "file error";
         }
+        strem.setDevice(&file);
+        strem.seek(0);
         fSaveStrem = true;
         ui->pb_save->setText("Stop Save");
     } else {
