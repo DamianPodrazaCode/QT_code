@@ -9,4 +9,5 @@ C::~C() {
 }
 
 void C::metodaC() {
+    qInfo() << this << "metodaC";
 }

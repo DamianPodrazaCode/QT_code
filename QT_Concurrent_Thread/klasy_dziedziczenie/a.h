@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QDebug>
 
-class A : public QObject {
+class A : public QObject { // dzidziczy po QObject
     Q_OBJECT
 
 public:

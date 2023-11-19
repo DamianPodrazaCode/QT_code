@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QObject>
 
-class C : public B {
+class C : public B { // dzidziczy po B, B dziedziczy po A, A dzidziczy po QObject
     Q_OBJECT
 
 public:

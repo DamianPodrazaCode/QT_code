@@ -9,4 +9,5 @@ B::~B() {
 }
 
 void B::metodaB() {
+    qInfo() << this << "metodaB";
 }
