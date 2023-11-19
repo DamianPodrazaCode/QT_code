@@ -2,13 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QDebug>
+#include <QDialog>
 #include <QFile>
+#include <QFileDialog>
 #include <QMainWindow>
 #include <QRandomGenerator>
 #include <QTextStream>
 #include <QTimer>
-#include <QDialog>
-#include <QFileDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -28,7 +28,6 @@ public:
 private slots:
     void updateTimer();
     void on_pb_random_toggled(bool checked);
-
     void on_pb_save_toggled(bool checked);
 
 private:
