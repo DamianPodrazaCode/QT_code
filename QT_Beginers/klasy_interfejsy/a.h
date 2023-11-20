@@ -5,9 +5,6 @@
 
 class A {
 public:
-    A() {
-        qInfo() << this << "k A";
-    }
     virtual void makeA() = 0;
 };
 
