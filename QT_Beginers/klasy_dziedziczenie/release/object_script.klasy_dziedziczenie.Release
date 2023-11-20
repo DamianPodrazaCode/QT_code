@@ -1,0 +1,11 @@
+release/a.o
+release/aa.o
+release/b.o
+release/c.o
+release/d.o
+release/main.o
+release/moc_a.o
+release/moc_aa.o
+release/moc_b.o
+release/moc_c.o
+release/moc_d.o
