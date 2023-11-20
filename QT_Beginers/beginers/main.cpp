@@ -8,6 +8,7 @@
 // Q_FUNC_INFO -> zwraca nazwę funkcji, metody
 // unique_ptr -> automatyczny wskaźnik
 // rzutowanie zmiennych i objektów
+// Exeption
 
 #include "cast1.h"
 #include "cast2.h"
@@ -241,7 +242,7 @@ void casting_() {
     }
     {
         // QOBJECT casting,
-        //T *qobject_cast<T>(QObject *object);
+        // T *qobject_cast<T>(QObject *object);
         qInfo() << "";
         qInfo() << "QObject casting";
         // rzutowanie z możliwą utratą danych, możliwe rzutowanie tylko na objektach dzidziczących po QOBJECT,
@@ -273,7 +274,37 @@ void casting_() {
     }
 }
 // ------------------------------------------------
+void exeption_() {
+    int aaa = 10;
+    int bbb = 6;
+    try {
+        if (bbb == 0)
+            throw QString("dzielenie przez zero.");
+        if (bbb == 5)
+            throw 5;
+        qInfo() << "ok";
+        qInfo() << aaa / bbb;
+    } catch (QString e) {
+        qInfo() << e;
+        return;
+    } catch (int e) {
+        qInfo() << e;
+        return;
+    }
+
+    //    try {
+    //        // Kod, w którym może wystąpić wyjątek
+    //        throw std::runtime_error("To jest wyjątek!");
+    //    } catch (const std::exception &e) {
+    //        // Obsługa wyjątku std::exception lub jego pochodnych
+    //        std::cerr << "Złapany wyjątek: " << e.what() << std::endl;
+    //    } catch (...) {
+    //        // Obsługa innych typów wyjątków
+    //        std::cerr << "Złapany inny wyjątek." << std::endl;
+    //    }
+}
 // ------------------------------------------------
+
 // ------------------------------------------------
 // ------------------------------------------------
 // ------------------------------------------------
@@ -289,7 +320,8 @@ int main(int argc, char *argv[]) {
     // ternary();
     // qFunInfo_();
     // uniquePTR();
-    casting_();
+    // casting_();
+    // exeption_();
 
     return a.exec();
 }
