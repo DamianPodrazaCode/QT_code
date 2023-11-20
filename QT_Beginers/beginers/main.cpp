@@ -128,29 +128,114 @@ void casting_() {
     // Explicit - jawna konwersja
     out = (int)value;
     qInfo() << out;
-    // Dynamic casting,
-    // rzutowanie z możliwą utratą danych, możliwe tylko między klasami dziedziczącymi,
-    // trzeba pamiętać że obiekt jest cały czas ten sam, rzutowanie następuje tylko pomiędzy wskaźnikami
-    Cast2 *obj1 = new Cast2(); // tworzenie objektu z klasy Cast2 która dzidziczy po Cast1, i zawiera didatkowe metody i pola
 
-    Cast1 *obj2 = dynamic_cast<Cast1 *>(obj1); // rzutowanie na nowy wskażnik innego typu, obj1 dziedziczy po obj2
-    if (obj2)
-        qInfo() << "utworzony" << obj2;
-    else
-        qInfo() << "nie utworzony" << obj2;
+    {
+        // Dynamic casting,
+        qInfo() << "Dynamic casting";
+        // rzutowanie z możliwą utratą danych, możliwe tylko między klasami dziedziczącymi,
+        // trzeba pamiętać że w tym przypadku obiekt jest cały czas ten sam, rzutowanie następuje tylko pomiędzy wskaźnikami
+        // sprawdzanie rzutowania na poziomie programu
+        Cast2 *obj1 = new Cast2(); // tworzenie objektu z klasy Cast2 która dzidziczy po Cast1, i zawiera didatkowe metody i pola
 
-    Cast3 *obj3 = dynamic_cast<Cast3 *>(obj1); // rzutowanie na nowy wskażnik innego typu, obj3 jaest całkowicie inny niż obj1
-    if (obj3)
-        qInfo() << "utworzony" << obj3;
-    else
-        qInfo() << "nie utworzony" << obj3;
+        Cast1 *obj2 = dynamic_cast<Cast1 *>(obj1); // rzutowanie na nowy wskażnik innego typu, obj1 dziedziczy po obj2
+        if (obj2) {
+            qInfo() << "utworzony" << obj2;
+            obj2->metoda1();
+            obj2->metoda2();
+        } else {
+            qInfo() << "nie utworzony" << obj2;
+        }
 
-    Cast2 *obj4 = dynamic_cast<Cast2 *>(obj2); // rzutowanie na nowy wskażnik innego typu, obj1 dziedziczy po obj2
-    if (obj4)
-        qInfo() << "utworzony" << obj4;
-    else
-        qInfo() << "nie utworzony" << obj4;
-    delete obj1;
+        Cast3 *obj3 = dynamic_cast<Cast3 *>(obj1); // rzutowanie na nowy wskażnik innego typu, obj3 jest całkowicie inny niż obj1
+        if (obj3) {
+            qInfo() << "utworzony" << obj3;
+        } else {
+            qInfo() << "nie utworzony" << obj3;
+        }
+
+        Cast2 *obj4 = dynamic_cast<Cast2 *>(obj2); // rzutowanie na nowy wskażnik innego typu, obj1 dziedziczy po obj2
+        if (obj4) {
+            qInfo() << "utworzony" << obj4;
+            obj4->metoda3();
+            obj4->metoda1();
+            obj4->metoda2();
+        } else {
+            qInfo() << "nie utworzony" << obj4;
+        }
+        delete obj1;
+    }
+    {
+        // Static casting,
+        // nowy_typ_wynikowy = static_cast<nowy_typ_wynikowy>(wyrażenie_do_rzutowania);
+        qInfo() << "Static casting";
+        // rzutowanie z możliwą utratą danych, możliwe tylko między klasami dziedziczącymi,
+        // trzeba pamiętać że w tym przypadku obiekt jest cały czas ten sam, rzutowanie następuje tylko pomiędzy wskaźnikami
+        // sprawdzanie rzutowania na poziomie kompilatora
+        Cast2 *obj1 = new Cast2(); // tworzenie objektu z klasy Cast2 która dzidziczy po Cast1, i zawiera didatkowe metody i pola
+
+        Cast1 *obj2 = static_cast<Cast1 *>(obj1); // rzutowanie na nowy wskażnik innego typu, obj1 dziedziczy po obj2
+        if (obj2) {
+            qInfo() << "utworzony" << obj2;
+        } else {
+            qInfo() << "nie utworzony" << obj2;
+        }
+
+        // błąd kompilatora
+        // Cast3 *obj3 = static_cast<Cast3 *>(obj1); // rzutowanie na nowy wskażnik innego typu, obj3 jest całkowicie inny niż obj1
+        // if (obj3)
+        // qInfo() << "utworzony" << obj3;
+        // else
+        // qInfo() << "nie utworzony" << obj3;
+
+        Cast2 *obj4 = static_cast<Cast2 *>(obj2); // rzutowanie na nowy wskażnik innego typu, obj1 dziedziczy po obj2
+        if (obj4) {
+            qInfo() << "utworzony" << obj4;
+        } else {
+            qInfo() << "nie utworzony" << obj4;
+        }
+        delete obj1;
+    }
+    {
+        // Reinpreted casting,
+        // nowy_typ_wynikowy = reinterpret_cast<nowy_typ_wynikowy>(wyrażenie_do_rzutowania);
+        qInfo() << "Reinpreted casting";
+        // rzutowanie z możliwą utratą danych, możliwe każde rzutowanie,
+        // trzeba pamiętać że w tym przypadku obiekt jest cały czas ten sam, rzutowanie następuje tylko pomiędzy wskaźnikami
+        // sprawdzanie rzutowania na poziomie programu
+        Cast2 *obj1 = new Cast2(); // tworzenie objektu z klasy Cast2 która dzidziczy po Cast1, i zawiera didatkowe metody i pola
+
+        Cast1 *obj2 = reinterpret_cast<Cast1 *>(obj1); // rzutowanie na nowy wskażnik innego typu, obj1 dziedziczy po obj2
+        if (obj2) {
+            qInfo() << "utworzony" << obj2;
+        } else {
+            qInfo() << "nie utworzony" << obj2;
+        }
+
+        Cast3 *obj3 = reinterpret_cast<Cast3 *>(obj1); // rzutowanie na nowy wskażnik innego typu, obj3 jest całkowicie inny niż obj1
+        if (obj3) {
+            qInfo() << "utworzony" << obj3;
+            obj3->metodaA();
+            obj3->metodaB();
+            obj3->metodaC();
+        } else {
+            qInfo() << "nie utworzony" << obj3;
+        }
+
+        Cast2 *obj4 = reinterpret_cast<Cast2 *>(obj2); // rzutowanie na nowy wskażnik innego typu, obj1 dziedziczy po obj2
+        if (obj4) {
+            qInfo() << "utworzony" << obj4;
+        } else {
+            qInfo() << "nie utworzony" << obj4;
+        }
+        delete obj1;
+
+        double data1 = 1.987;
+        double *ptr_data1 = &data1;
+
+        uint32_t *ptr_data2 = reinterpret_cast<uint32_t *>(ptr_data1);
+        qInfo() << *ptr_data1;
+        qInfo("%x", *ptr_data2);
+    }
 }
 // ------------------------------------------------
 // ------------------------------------------------
