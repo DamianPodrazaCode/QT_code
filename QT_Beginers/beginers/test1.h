@@ -1,8 +1,8 @@
 #ifndef TEST1_H
 #define TEST1_H
 
-#include <QObject>
 #include <QDebug>
+#include <QObject>
 
 class Test1 : public QObject {
     Q_OBJECT

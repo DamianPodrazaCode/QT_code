@@ -7,7 +7,11 @@
 // operator ?: (ternary)
 // Q_FUNC_INFO -> zwraca nazwę funkcji, metody
 // unique_ptr -> automatyczny wskaźnik
+// rzutowanie zmiennych i objektów
 
+#include "cast1.h"
+#include "cast2.h"
+#include "cast3.h"
 #include "test1.h"
 #include <QCoreApplication>
 #include <QDebug>
@@ -83,7 +87,7 @@ void qdebug_() {
     qDebug() << "qDebug";
     qWarning() << "qWarning";
     qCritical() << "qCritical";
-    qFatal("qFatal");  // przerywa aplikacje
+    qFatal("qFatal"); // przerywa aplikacje
 }
 // ------------------------------------------------
 void ternary() {
@@ -94,7 +98,7 @@ void ternary() {
 }
 // ------------------------------------------------
 void qFunInfo_() {
-    qInfo() << Q_FUNC_INFO;  // nazwa wykonywanej funkcji
+    qInfo() << Q_FUNC_INFO; // nazwa wykonywanej funkcji
 }
 // ------------------------------------------------
 void uniquePTR() {
@@ -108,14 +112,46 @@ void uniquePTR() {
     std::unique_ptr<Test1> obj2 = std::make_unique<Test1>();
     obj2->metoda1();
     qInfo() << "";
+    // Próba przypisania lub skopiowania std::unique_ptr prowadzi do błędu kompilacji, co pomaga zapobiegać wyciekom pamięci.
 
     // objekt na stosie
     Test1 obj3;
     obj3.metoda1();
     qInfo() << "";
 }
-
 // ------------------------------------------------
+void casting_() {
+    double value = 1.23;
+    // Implicit - niejawna konwersja
+    int out = value;
+    qInfo() << out;
+    // Explicit - jawna konwersja
+    out = (int)value;
+    qInfo() << out;
+    // Dynamic casting,
+    // rzutowanie z możliwą utratą danych, możliwe tylko między klasami dziedziczącymi,
+    // trzeba pamiętać że obiekt jest cały czas ten sam, rzutowanie następuje tylko pomiędzy wskaźnikami
+    Cast2 *obj1 = new Cast2(); // tworzenie objektu z klasy Cast2 która dzidziczy po Cast1, i zawiera didatkowe metody i pola
+
+    Cast1 *obj2 = dynamic_cast<Cast1 *>(obj1); // rzutowanie na nowy wskażnik innego typu, obj1 dziedziczy po obj2
+    if (obj2)
+        qInfo() << "utworzony" << obj2;
+    else
+        qInfo() << "nie utworzony" << obj2;
+
+    Cast3 *obj3 = dynamic_cast<Cast3 *>(obj1); // rzutowanie na nowy wskażnik innego typu, obj3 jaest całkowicie inny niż obj1
+    if (obj3)
+        qInfo() << "utworzony" << obj3;
+    else
+        qInfo() << "nie utworzony" << obj3;
+
+    Cast2 *obj4 = dynamic_cast<Cast2 *>(obj2); // rzutowanie na nowy wskażnik innego typu, obj1 dziedziczy po obj2
+    if (obj4)
+        qInfo() << "utworzony" << obj4;
+    else
+        qInfo() << "nie utworzony" << obj4;
+    delete obj1;
+}
 // ------------------------------------------------
 // ------------------------------------------------
 // ------------------------------------------------
@@ -125,7 +161,6 @@ void uniquePTR() {
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
 
-
     // enum_();
     // struct_();
     // array_();
@@ -133,7 +168,8 @@ int main(int argc, char *argv[]) {
     // qdebug_();
     // ternary();
     // qFunInfo_();
-    uniquePTR();
+    // uniquePTR();
+    casting_();
 
     return a.exec();
 }
