@@ -9,6 +9,7 @@
 // unique_ptr -> automatyczny wskaźnik
 // rzutowanie zmiennych i objektów
 // Exeption
+// Templates
 
 #include "cast1.h"
 #include "cast2.h"
@@ -304,7 +305,25 @@ void exeption_() {
     //    }
 }
 // ------------------------------------------------
+// typename == class
+template <typename T> void fun(T value) {
+    qInfo() << value;
+}
 
+template <class T, class A, class B> T add(A in1, B in2) {
+    return in1 + in2;
+}
+
+void template_() {
+    int aaa = 10;
+    double bbb = 20.123;
+    QString ccc = "ok str";
+    fun<int>(aaa);
+    fun<double>(bbb);
+    fun<QString>(ccc);
+
+    qInfo() << (double)add<double, int, double>(10, 123.123);
+}
 // ------------------------------------------------
 // ------------------------------------------------
 // ------------------------------------------------
@@ -322,6 +341,6 @@ int main(int argc, char *argv[]) {
     // uniquePTR();
     // casting_();
     // exeption_();
-
+    template_();
     return a.exec();
 }
