@@ -5,7 +5,10 @@
 // cout cin cerr
 // qDebug
 // operator ?: (ternary)
+// Q_FUNC_INFO -> zwraca nazwę funkcji, metody
+// unique_ptr -> automatyczny wskaźnik
 
+#include "test1.h"
 #include <QCoreApplication>
 #include <QDebug>
 #include <array>
@@ -90,7 +93,28 @@ void ternary() {
     qInfo() << (a > b ? "true" : "false");
 }
 // ------------------------------------------------
+void qFunInfo_() {
+    qInfo() << Q_FUNC_INFO;  // nazwa wykonywanej funkcji
+}
 // ------------------------------------------------
+void uniquePTR() {
+    // zwykłe tworzenie na stercie
+    Test1 *obj1 = new Test1();
+    obj1->metoda1();
+    delete obj1;
+    qInfo() << "";
+
+    // automatyczny wskażnik na stercie
+    std::unique_ptr<Test1> obj2 = std::make_unique<Test1>();
+    obj2->metoda1();
+    qInfo() << "";
+
+    // objekt na stosie
+    Test1 obj3;
+    obj3.metoda1();
+    qInfo() << "";
+}
+
 // ------------------------------------------------
 // ------------------------------------------------
 // ------------------------------------------------
@@ -107,7 +131,9 @@ int main(int argc, char *argv[]) {
     // array_();
     // cout_cin_cerr();
     // qdebug_();
-    ternary();
+    // ternary();
+    // qFunInfo_();
+    uniquePTR();
 
     return a.exec();
 }
