@@ -15,6 +15,8 @@
 // qint
 // QString
 // QByteArray, Encoding, Decoding
+// QVariant
+// QMap
 
 #include "cast1.h"
 #include "cast2.h"
@@ -26,10 +28,12 @@
 #include <QDate>
 #include <QDateTime>
 #include <QDebug>
+#include <QMap>
 #include <QString>
 #include <QThread>
 #include <QTime>
 #include <QTimer>
+#include <QVariant>
 #include <array>
 #include <iostream>
 
@@ -414,11 +418,28 @@ void qbytearray_() {
     qInfo() << QByteArray::fromHex(bufferEncodingHex);
 }
 // ------------------------------------------------
+void qvariant_() {
+    // typ nieokreślony (zgadywany)
+    QVariant val1 = 1;
+    QVariant val2 = 2.123;
+    QVariant val3 = "sadfasdf";
+    qInfo() << val1 << val2 << val3;
+    qInfo() << (QVariant)val1.toDouble();
+    qInfo() << (QVariant)val2.toInt();
+}
 // ------------------------------------------------
-// ------------------------------------------------
-// ------------------------------------------------
-// ------------------------------------------------
-// ------------------------------------------------
+void qmap_() {
+    QMap<QString, int> mapa;
+    mapa["one"] = 1;
+    mapa["qwert"] = 123;
+    mapa["three"] = 3;
+    mapa["seven"] = 7;
+    qInfo() << mapa;
+    mapa.insert("asd", 43);
+    qInfo() << mapa;
+    mapa.insert("zasd", 143);
+    qInfo() << mapa;
+}
 // ------------------------------------------------
 
 int main(int argc, char *argv[]) {
@@ -439,7 +460,9 @@ int main(int argc, char *argv[]) {
     // qint_();
     // qstring_();
     // qbytearray_();
+    // qvariant_();
+    qmap_();
 
-    // return 0;
+           // return 0;
     return a.exec();
 }
