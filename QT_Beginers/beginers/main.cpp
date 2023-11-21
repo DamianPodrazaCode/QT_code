@@ -14,12 +14,14 @@
 // Date Time
 // qint
 // QString
+// QByteArray, Encoding, Decoding
 
 #include "cast1.h"
 #include "cast2.h"
 #include "cast3.h"
 #include "mytimer.h"
 #include "test1.h"
+#include <QByteArray>
 #include <QCoreApplication>
 #include <QDate>
 #include <QDateTime>
@@ -345,24 +347,24 @@ void timer_() {
 // ------------------------------------------------
 void dateTime_() {
     QDate dzisiaj = QDate::currentDate();
-    qInfo() << dzisiaj                                         //
-            << dzisiaj.toString(Qt::DateFormat::ISODate)       //
+    qInfo() << dzisiaj //
+            << dzisiaj.toString(Qt::DateFormat::ISODate) //
             << dzisiaj.toString(Qt::DateFormat::ISODateWithMs) //
-            << dzisiaj.toString(Qt::DateFormat::RFC2822Date)   //
+            << dzisiaj.toString(Qt::DateFormat::RFC2822Date) //
             << dzisiaj.toString(Qt::DateFormat::TextDate);
 
     QTime czas = QTime::currentTime();
-    qInfo() << czas                                         //
-            << czas.toString(Qt::DateFormat::ISODate)       //
+    qInfo() << czas //
+            << czas.toString(Qt::DateFormat::ISODate) //
             << czas.toString(Qt::DateFormat::ISODateWithMs) //
-            << czas.toString(Qt::DateFormat::RFC2822Date)   //
+            << czas.toString(Qt::DateFormat::RFC2822Date) //
             << czas.toString(Qt::DateFormat::TextDate);
 
     QDateTime teraz = QDateTime::currentDateTime();
-    qInfo() << teraz                                         //
-            << teraz.toString(Qt::DateFormat::ISODate)       //
+    qInfo() << teraz //
+            << teraz.toString(Qt::DateFormat::ISODate) //
             << teraz.toString(Qt::DateFormat::ISODateWithMs) //
-            << teraz.toString(Qt::DateFormat::RFC2822Date)   //
+            << teraz.toString(Qt::DateFormat::RFC2822Date) //
             << teraz.toString(Qt::DateFormat::TextDate);
 }
 // ------------------------------------------------
@@ -379,8 +381,38 @@ void qint_() {
             << sizeof(aaa);
 }
 // ------------------------------------------------
-
+void qstring_() {
+    QString str = "1q 2w 3e 4r 5t";
+    qInfo() << str;
+    qInfo() << str.mid(2, 6);
+    qInfo() << str.split(" ");
+    qInfo() << str.at(0);
+    qInfo() << str.capacity();
+    qInfo() << str.length();
+    qInfo() << str.contains("2w");
+    qInfo() << str.toUpper();
+}
 // ------------------------------------------------
+void qbytearray_() {
+    QString str = "1q 2w 3e 4r 5t";
+    qInfo() << str;
+    QByteArray buffer = str.toLatin1();
+    qInfo() << buffer;
+    qInfo() << buffer.replace(" ", ".");
+    qInfo() << buffer.rightJustified(30, '*');
+
+    // encoding
+    QByteArray bufferEncoding = buffer.toBase64();
+    qInfo() << bufferEncoding;
+    // decoding
+    qInfo() << QByteArray::fromBase64(bufferEncoding);
+
+    // to HEX
+    QByteArray bufferEncodingHex = bufferEncoding.toHex();
+    qInfo() << bufferEncodingHex;
+    // from HEX
+    qInfo() << QByteArray::fromHex(bufferEncodingHex);
+}
 // ------------------------------------------------
 // ------------------------------------------------
 // ------------------------------------------------
@@ -405,6 +437,8 @@ int main(int argc, char *argv[]) {
     // timer_();
     // dateTime_();
     // qint_();
+    // qstring_();
+    // qbytearray_();
 
     // return 0;
     return a.exec();
