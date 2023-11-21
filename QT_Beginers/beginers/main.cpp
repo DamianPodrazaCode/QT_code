@@ -306,11 +306,13 @@ void exeption_() {
 }
 // ------------------------------------------------
 // typename == class
-template <typename T> void fun(T value) {
+template <typename T>
+void fun(T value) {
     qInfo() << value;
 }
 
-template <class T, class A, class B> T add(A in1, B in2) {
+template <class T, class A, class B>
+T add(A in1, B in2) {
     return in1 + in2;
 }
 
@@ -325,6 +327,7 @@ void template_() {
     qInfo() << (double)add<double, int, double>(10, 123.123);
 }
 // ------------------------------------------------
+
 // ------------------------------------------------
 // ------------------------------------------------
 
