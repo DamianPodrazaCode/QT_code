@@ -1,6 +1,7 @@
 #ifndef RX_H
 #define RX_H
 
+#include <QDebug>
 #include <QObject>
 
 class Rx : public QObject {
@@ -8,6 +9,10 @@ class Rx : public QObject {
 
 public:
     explicit Rx(QObject *parent = nullptr);
+    ~Rx();
+
+public slots:
+    void info_slot(QString str);
 
 signals:
 };
