@@ -11,6 +11,7 @@ SOURCES += \
         cast2.cpp \
         cast3.cpp \
         main.cpp \
+        mytimer.cpp \
         test1.cpp
 
 # Default rules for deployment.
@@ -22,4 +23,5 @@ HEADERS += \
     cast1.h \
     cast2.h \
     cast3.h \
+    mytimer.h \
     test1.h

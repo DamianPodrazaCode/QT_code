@@ -11,3 +11,7 @@ Test1::~Test1() {
 void Test1::metoda1() {
     qInfo() << this << Q_FUNC_INFO;
 }
+
+void Test1::timerTick() {
+    qInfo() << this << Q_FUNC_INFO;
+}

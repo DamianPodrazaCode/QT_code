@@ -10,5 +10,6 @@ Rx::~Rx() {
 }
 
 void Rx::info_slot(QString str) {
-    qInfo() << str << Q_FUNC_INFO;
+    qInfo() << str << sender();
+    qInfo() << "odebrane w " << Q_FUNC_INFO;
 }

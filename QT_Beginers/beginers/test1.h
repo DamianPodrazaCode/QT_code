@@ -12,6 +12,9 @@ public:
     ~Test1();
     void metoda1();
 
+public slots:
+    void timerTick();
+
 signals:
 };
 

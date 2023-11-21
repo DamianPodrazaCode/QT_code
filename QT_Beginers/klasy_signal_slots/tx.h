@@ -7,6 +7,8 @@
 class Tx : public QObject {
     Q_OBJECT
 
+    QString m_message;
+
 public:
     explicit Tx(QObject *parent = nullptr);
     ~Tx();

@@ -1,12 +1,12 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'test1.h'
+** Meta object code from reading C++ file 'mytimer.h'
 **
 ** Created by: The Qt Meta Object Compiler version 68 (Qt 6.6.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../test1.h"
+#include "../mytimer.h"
 #include <QtCore/qmetatype.h>
 
 #if __has_include(<QtCore/qtmochelpers.h>)
@@ -19,7 +19,7 @@ QT_BEGIN_MOC_NAMESPACE
 #include <memory>
 
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'test1.h' doesn't include <QObject>."
+#error "The header file 'mytimer.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 68
 #error "This file was generated using the moc from 6.6.0. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -36,36 +36,36 @@ QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
 
 #ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSTest1ENDCLASS_t {};
-static constexpr auto qt_meta_stringdata_CLASSTest1ENDCLASS = QtMocHelpers::stringData(
-    "Test1",
-    "timerTick",
+struct qt_meta_stringdata_CLASSMyTimerENDCLASS_t {};
+static constexpr auto qt_meta_stringdata_CLASSMyTimerENDCLASS = QtMocHelpers::stringData(
+    "MyTimer",
+    "timeTick",
     ""
 );
 #else  // !QT_MOC_HAS_STRING_DATA
-struct qt_meta_stringdata_CLASSTest1ENDCLASS_t {
+struct qt_meta_stringdata_CLASSMyTimerENDCLASS_t {
     uint offsetsAndSizes[6];
-    char stringdata0[6];
-    char stringdata1[10];
+    char stringdata0[8];
+    char stringdata1[9];
     char stringdata2[1];
 };
 #define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CLASSTest1ENDCLASS_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CLASSTest1ENDCLASS_t qt_meta_stringdata_CLASSTest1ENDCLASS = {
+    uint(sizeof(qt_meta_stringdata_CLASSMyTimerENDCLASS_t::offsetsAndSizes) + ofs), len 
+Q_CONSTINIT static const qt_meta_stringdata_CLASSMyTimerENDCLASS_t qt_meta_stringdata_CLASSMyTimerENDCLASS = {
     {
-        QT_MOC_LITERAL(0, 5),  // "Test1"
-        QT_MOC_LITERAL(6, 9),  // "timerTick"
-        QT_MOC_LITERAL(16, 0)   // ""
+        QT_MOC_LITERAL(0, 7),  // "MyTimer"
+        QT_MOC_LITERAL(8, 8),  // "timeTick"
+        QT_MOC_LITERAL(17, 0)   // ""
     },
-    "Test1",
-    "timerTick",
+    "MyTimer",
+    "timeTick",
     ""
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
 } // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSTest1ENDCLASS[] = {
+Q_CONSTINIT static const uint qt_meta_data_CLASSMyTimerENDCLASS[] = {
 
  // content:
       12,       // revision
@@ -87,48 +87,48 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSTest1ENDCLASS[] = {
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject Test1::staticMetaObject = { {
+Q_CONSTINIT const QMetaObject MyTimer::staticMetaObject = { {
     QMetaObject::SuperData::link<QObject::staticMetaObject>(),
-    qt_meta_stringdata_CLASSTest1ENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSTest1ENDCLASS,
+    qt_meta_stringdata_CLASSMyTimerENDCLASS.offsetsAndSizes,
+    qt_meta_data_CLASSMyTimerENDCLASS,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSTest1ENDCLASS_t,
+    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSMyTimerENDCLASS_t,
         // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<Test1, std::true_type>,
-        // method 'timerTick'
+        QtPrivate::TypeAndForceComplete<MyTimer, std::true_type>,
+        // method 'timeTick'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
 } };
 
-void Test1::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void MyTimer::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<Test1 *>(_o);
+        auto *_t = static_cast<MyTimer *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->timerTick(); break;
+        case 0: _t->timeTick(); break;
         default: ;
         }
     }
     (void)_a;
 }
 
-const QMetaObject *Test1::metaObject() const
+const QMetaObject *MyTimer::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *Test1::qt_metacast(const char *_clname)
+void *MyTimer::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSTest1ENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_CLASSMyTimerENDCLASS.stringdata0))
         return static_cast<void*>(this);
     return QObject::qt_metacast(_clname);
 }
 
-int Test1::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int MyTimer::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QObject::qt_metacall(_c, _id, _a);
     if (_id < 0)

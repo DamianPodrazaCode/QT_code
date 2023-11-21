@@ -10,13 +10,24 @@
 // rzutowanie zmiennych i objektów
 // Exeption
 // Templates
+// qTimer
+// Date Time
+// qint
+// QString
 
 #include "cast1.h"
 #include "cast2.h"
 #include "cast3.h"
+#include "mytimer.h"
 #include "test1.h"
 #include <QCoreApplication>
+#include <QDate>
+#include <QDateTime>
 #include <QDebug>
+#include <QString>
+#include <QThread>
+#include <QTime>
+#include <QTimer>
 #include <array>
 #include <iostream>
 
@@ -58,7 +69,7 @@ void struct_() {
     qInfo() << myStruct.aaa << myStruct.bbb;
     myStruct.start();
     // struktura działa taksamo jak klasa poza tym że domyślnie klasa jest private a struktura public
-    // dziedziczenie, polimorfizm, przeciążeni, wirtualizacja i inne są takiesame jak w klasach
+    // dziedziczenie, polimorfizm, przeciążeni, wirtualizacja i inne są takie same jak w klasach
 }
 // ------------------------------------------------
 void array_() {
@@ -327,13 +338,59 @@ void template_() {
     qInfo() << (double)add<double, int, double>(10, 123.123);
 }
 // ------------------------------------------------
+MyTimer myTimer;
+void timer_() {
+    myTimer.start();
+}
+// ------------------------------------------------
+void dateTime_() {
+    QDate dzisiaj = QDate::currentDate();
+    qInfo() << dzisiaj                                         //
+            << dzisiaj.toString(Qt::DateFormat::ISODate)       //
+            << dzisiaj.toString(Qt::DateFormat::ISODateWithMs) //
+            << dzisiaj.toString(Qt::DateFormat::RFC2822Date)   //
+            << dzisiaj.toString(Qt::DateFormat::TextDate);
 
+    QTime czas = QTime::currentTime();
+    qInfo() << czas                                         //
+            << czas.toString(Qt::DateFormat::ISODate)       //
+            << czas.toString(Qt::DateFormat::ISODateWithMs) //
+            << czas.toString(Qt::DateFormat::RFC2822Date)   //
+            << czas.toString(Qt::DateFormat::TextDate);
+
+    QDateTime teraz = QDateTime::currentDateTime();
+    qInfo() << teraz                                         //
+            << teraz.toString(Qt::DateFormat::ISODate)       //
+            << teraz.toString(Qt::DateFormat::ISODateWithMs) //
+            << teraz.toString(Qt::DateFormat::RFC2822Date)   //
+            << teraz.toString(Qt::DateFormat::TextDate);
+}
+// ------------------------------------------------
+void qint_() {
+    qint8 val8 = 0;
+    qint16 val16 = 0;
+    qint32 val32 = 0;
+    qint64 val64 = 0;
+    qint128 val128 = 0;
+    qintptr *intPtr = &val64;
+    qint128 *p_val128 = &val128;
+    int *aaa = &val32;
+    qInfo() << sizeof(val8) << sizeof(val16) << sizeof(val32) << sizeof(val64) << sizeof(val128) << sizeof(p_val128) << sizeof(intPtr)
+            << sizeof(aaa);
+}
+// ------------------------------------------------
+
+// ------------------------------------------------
+// ------------------------------------------------
+// ------------------------------------------------
+// ------------------------------------------------
+// ------------------------------------------------
+// ------------------------------------------------
 // ------------------------------------------------
 // ------------------------------------------------
 
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
-
     // enum_();
     // struct_();
     // array_();
@@ -344,6 +401,11 @@ int main(int argc, char *argv[]) {
     // uniquePTR();
     // casting_();
     // exeption_();
-    template_();
+    // template_();
+    // timer_();
+    // dateTime_();
+    // qint_();
+
+    // return 0;
     return a.exec();
 }
