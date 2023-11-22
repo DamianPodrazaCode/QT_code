@@ -44,11 +44,9 @@ QSharedPointer<Test> getObj(QString name) {
     pTest->work();
     return pTest;
 }
-
 void work(QSharedPointer<Test> qsp) {
     qsp->work();
 }
-
 void qSharedPointer_() {
     QSharedPointer<Test> ptrTest = getObj("nowy");
     work(ptrTest);
@@ -61,7 +59,6 @@ void qSharedPointer_() {
 // -------------------------------------------
 // -------------------------------------------
 // -------------------------------------------
-
 
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
