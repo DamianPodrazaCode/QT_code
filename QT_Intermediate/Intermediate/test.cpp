@@ -7,3 +7,7 @@ Test::Test(QObject *parent) : QObject{parent} {
 Test::~Test() {
     qInfo() << "destruktor" << this << Q_FUNC_INFO;
 }
+
+void Test::work() {
+    qInfo() << "worked" << this << Q_FUNC_INFO;
+}

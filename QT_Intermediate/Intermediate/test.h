@@ -11,6 +11,8 @@ public:
     explicit Test(QObject *parent = nullptr);
     ~Test();
 
+    void work();
+
 signals:
 };
 
