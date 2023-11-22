@@ -1,8 +1,14 @@
+#include "test.h"
 #include <QCoreApplication>
 
-int main(int argc, char *argv[])
-{
+void lifecycle() {
+    Test T;
+}
+
+int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
+
+    lifecycle();
 
     return a.exec();
 }
