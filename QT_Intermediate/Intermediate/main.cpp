@@ -2,11 +2,16 @@
 #include <QCoreApplication>
 #include <QScopedPointer>
 #include <QSharedPointer>
+#include <QList>
+#include <QString>
+#include <QSet>
 
 // new dadgling pointer
 // smart poionter
 // QScopedPointer
 // QSharedPointer
+// dynamic array QList
+// fast lookup QSet
 
 // -------------------------------------------
 void lifecycle() {
@@ -53,7 +58,30 @@ void qSharedPointer_() {
     ptrTest->work();
 }
 // -------------------------------------------
+void qList_() {
+    QList<int> listaInt;
+    listaInt << 43 << 55 << 101 << 1 << 2 << 33 << 44;
+    listaInt.append(43);
+    qInfo() << listaInt;
+
+    QStringList listaStr;
+    listaStr << "sdfsd"
+             << "3fdsf"
+             << "htgf";
+    qInfo() << listaStr;
+    listaStr.sort();
+    qInfo() << listaStr;
+}
 // -------------------------------------------
+void qSet_() { // do szybkich operacji na zbiorach nieposortowanych, dodawanie zbioróqw odejmowanie i porównywanie
+    QSet<QString> tab;
+    tab << "gfgd"
+        << "aaa"
+        << "vvv"
+        << "bbb"
+        << "iyut";
+    qInfo() << tab << tab.contains("bbb");
+}
 // -------------------------------------------
 // -------------------------------------------
 // -------------------------------------------
@@ -67,7 +95,9 @@ int main(int argc, char *argv[]) {
     // dangling_pointer();
     // smart_poionter();
     // qScopedPointer_();
-    qSharedPointer_();
+    // qSharedPointer_();
+    // qList_();
+    qSet_();
 
     return a.exec();
 }
