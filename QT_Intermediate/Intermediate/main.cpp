@@ -1,13 +1,16 @@
 #include "test.h"
+#include <QBuffer>
 #include <QCoreApplication>
+#include <QDateTime>
+#include <QFile>
 #include <QList>
 #include <QMap>
 #include <QScopedPointer>
 #include <QSet>
+#include <QSettings>
 #include <QSharedPointer>
 #include <QString>
 #include <QStringList>
-#include <QSettings>
 
 // new dadgling pointer
 // smart poionter
@@ -120,14 +123,14 @@ void qStringList_() { // zaawansowana tablica stringów QList
 }
 // -------------------------------------------
 void qListObj_() {
-    QList<Test *> lista;  // klasa Test jest typu QObject i może być tworzona tylko przez wskaźnik
+    QList<Test *> lista; // klasa Test jest typu QObject i może być tworzona tylko przez wskaźnik
     lista.append(new Test());
     lista.append(new Test());
     lista.append(new Test());
     lista.append(new Test());
     lista.append(new Test());
     qDeleteAll(lista); // usuwa objekty z całej listy
-    lista.clear(); // usuwa wskaźniki które pokazywały na nie istniejące już obiekty
+    lista.clear();     // usuwa wskaźniki które pokazywały na nie istniejące już obiekty
     qInfo() << "end lista";
 
     // a teraz na smart pointer
@@ -138,7 +141,6 @@ void qListObj_() {
     listaSP.append(item2);
     listaSP.clear();
     qInfo() << "end listaSP";
-
 }
 // -------------------------------------------
 void qMapObj_() {
@@ -172,7 +174,7 @@ void setSettings(QString group, QString key, QString value) {
 }
 
 void qSettings_() {
-    setSettings("settings1", "key1", "val1");  // ustawianie watrości i automatyczny zapis w pliku *.ini
+    setSettings("settings1", "key1", "val1"); // ustawianie watrości i automatyczny zapis w pliku *.ini
     setSettings("settings1", "key2", "val343");
     setSettings("settings1", "key3", "val212");
     setSettings("settings1", "key4", "val3434");
@@ -184,7 +186,37 @@ void qSettings_() {
 }
 // -------------------------------------------
 void qiodevice_() {
+    // Qbuffer in RAM
+    QBuffer buffer;
+    if (buffer.open(QIODevice::ReadWrite)) {
+        qInfo() << "open";
+        QByteArray data("asdf ghjk lkjh nbvfghj ljkcfh");
+        buffer.write(data);
+        buffer.seek(0);
+        QByteArray data1("1234");
+        buffer.write(data1);
+        buffer.seek(0); // na początek bo po zapisie jest tam gdzie zapisano ostatni znak
+        qInfo() << buffer.readAll();
+        buffer.close();
+    } else {
+        qInfo() << "buffer not open";
+    }
 
+    // write file
+    QString filename = "test.txt";
+    QFile file(filename);
+    if (file.open(QIODevice::ReadWrite)) {
+        qInfo() << "file open";
+        QString now = QDateTime::currentDateTime().toString();
+        QByteArray data;
+        data.append(now.toLocal8Bit());
+        file.write(data);
+        file.flush();
+        file.close();
+        qInfo() << "file saved";
+    } else {
+        qInfo() << "file not open " << file.errorString();
+    }
 }
 // -------------------------------------------
 // -------------------------------------------
