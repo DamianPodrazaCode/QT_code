@@ -20,6 +20,7 @@
 // Qlist z objektami + smart poiner
 // QMap z objektami
 // QSettings -> zapis odczyt ustawień programu na dysku
+// QIODevice
 
 // -------------------------------------------
 void lifecycle() {
@@ -171,9 +172,20 @@ void setSettings(QString group, QString key, QString value) {
 }
 
 void qSettings_() {
+    setSettings("settings1", "key1", "val1");  // ustawianie watrości i automatyczny zapis w pliku *.ini
+    setSettings("settings1", "key2", "val343");
+    setSettings("settings1", "key3", "val212");
+    setSettings("settings1", "key4", "val3434");
 
+    qInfo() << getSettings("settings1", "key1"); // automatyczny odczyt z plików ini
+    qInfo() << getSettings("settings1", "key2");
+    qInfo() << getSettings("settings1", "key3");
+    qInfo() << getSettings("settings1", "key4");
 }
 // -------------------------------------------
+void qiodevice_() {
+
+}
 // -------------------------------------------
 // -------------------------------------------
 // -------------------------------------------
@@ -192,7 +204,8 @@ int main(int argc, char *argv[]) {
     // qStringList_();
     // qListObj_();
     // qMapObj_();
-    qSettings_();
+    // qSettings_();
+    qiodevice_();
 
     return a.exec();
 }
