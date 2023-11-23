@@ -16,8 +16,8 @@
 // fast lookup QSet
 // QMap
 // QStringList
-// Qlist z objektami
-
+// Qlist z objektami + smart poiner
+// QMap z objektami
 
 // -------------------------------------------
 void lifecycle() {
@@ -123,12 +123,23 @@ void qListObj_() {
     lista.append(new Test());
     lista.append(new Test());
     lista.append(new Test());
-
-
-    qDeleteAll(lista); //usuwa objekty z całej listy
+    qDeleteAll(lista); // usuwa objekty z całej listy
     lista.clear(); // usuwa wskaźniki które pokazywały na nie istniejące już obiekty
+    qInfo() << "end lista";
+
+    // a teraz na smart pointer
+    QList<QSharedPointer<Test>> listaSP;
+    QSharedPointer<Test> item(new Test());
+    listaSP.append(item);
+    QSharedPointer<Test> item2(new Test());
+    listaSP.append(item2);
+    listaSP.clear();
+    qInfo() << "end listaSP";
+
 }
 // -------------------------------------------
+void qMapObj_() {
+}
 // -------------------------------------------
 // -------------------------------------------
 // -------------------------------------------
@@ -147,7 +158,8 @@ int main(int argc, char *argv[]) {
     // qSet_();
     // qMap_();
     // qStringList_();
-    qListObj_();
+    // qListObj_();
+    qMapObj_();
 
     return a.exec();
 }
