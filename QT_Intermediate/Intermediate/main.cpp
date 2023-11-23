@@ -217,6 +217,22 @@ void qiodevice_() {
     } else {
         qInfo() << "file not open " << file.errorString();
     }
+
+    // read file small only
+    filename = "test.txt";
+    QFile fileRead(filename);
+    if (fileRead.exists()) {
+        if (fileRead.open(QIODevice::ReadWrite)) {
+            qInfo() << "file open";
+            qInfo() << fileRead.readAll();
+            qInfo() << "file read all";
+            fileRead.close();
+        } else {
+            qInfo() << "file not open " << file.errorString();
+        }
+    } else {
+        qInfo() << "file not exist " << file.errorString();
+    }
 }
 // -------------------------------------------
 // -------------------------------------------

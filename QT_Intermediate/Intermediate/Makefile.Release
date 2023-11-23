@@ -348,6 +348,9 @@ release/main.o: main.cpp test.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qset.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qhash.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qvarlengtharray.h \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QBuffer \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qbuffer.h \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qiodevice.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/QCoreApplication \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qcoreapplication.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qeventloop.h \
@@ -368,7 +371,23 @@ release/main.o: main.cpp test.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qpointer.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qpromise.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qvariant.h \
-		C:/Qt/6.6.0/mingw_64/include/QtCore/q23utility.h
+		C:/Qt/6.6.0/mingw_64/include/QtCore/q23utility.h \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QDateTime \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qdatetime.h \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qcalendar.h \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qlocale.h \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QFile \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qfile.h \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qfiledevice.h \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QList \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QMap \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QScopedPointer \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QSet \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QSettings \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qsettings.h \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QSharedPointer \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QString \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QStringList
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o main.cpp
 
 release/test.o: test.cpp test.h \
