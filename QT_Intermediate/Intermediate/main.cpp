@@ -7,6 +7,7 @@
 #include <QSharedPointer>
 #include <QString>
 #include <QStringList>
+#include <QSettings>
 
 // new dadgling pointer
 // smart poionter
@@ -18,6 +19,7 @@
 // QStringList
 // Qlist z objektami + smart poiner
 // QMap z objektami
+// QSettings -> zapis odczyt ustawień programu na dysku
 
 // -------------------------------------------
 void lifecycle() {
@@ -117,7 +119,7 @@ void qStringList_() { // zaawansowana tablica stringów QList
 }
 // -------------------------------------------
 void qListObj_() {
-    QList<Test *> lista;
+    QList<Test *> lista;  // klasa Test jest typu QObject i może być tworzona tylko przez wskaźnik
     lista.append(new Test());
     lista.append(new Test());
     lista.append(new Test());
@@ -139,8 +141,38 @@ void qListObj_() {
 }
 // -------------------------------------------
 void qMapObj_() {
+    QMap<QString, Test *> mapa;
+    mapa.insert("aaa", new Test());
+    mapa.insert("ccc", new Test());
+    mapa.insert("bbb", new Test());
+    qInfo() << mapa;
+    qDeleteAll(mapa);
+    mapa.clear();
+
+    qInfo() << "";
+
+    // smart pointer
+    QMap<QString, QSharedPointer<Test>> mapaSP;
+    QSharedPointer<Test> ptr(new Test());
+    mapaSP.insert("aaa", ptr);
+    QSharedPointer<Test> ptr2(new Test());
+    mapaSP.insert("aaa", ptr2);
+    mapaSP.clear();
 }
 // -------------------------------------------
+QString getSettings(QString group, QString key) {
+    QSettings settings("init.ini", QSettings::Format::IniFormat);
+    return settings.value(group + "/" + key).toString();
+}
+
+void setSettings(QString group, QString key, QString value) {
+    QSettings settings("init.ini", QSettings::Format::IniFormat);
+    settings.setValue(group + "/" + key, value);
+}
+
+void qSettings_() {
+
+}
 // -------------------------------------------
 // -------------------------------------------
 // -------------------------------------------
@@ -159,7 +191,8 @@ int main(int argc, char *argv[]) {
     // qMap_();
     // qStringList_();
     // qListObj_();
-    qMapObj_();
+    // qMapObj_();
+    qSettings_();
 
     return a.exec();
 }
