@@ -1,10 +1,12 @@
 #include "test.h"
 #include <QCoreApplication>
-#include <QScopedPointer>
-#include <QSharedPointer>
 #include <QList>
-#include <QString>
+#include <QMap>
+#include <QScopedPointer>
 #include <QSet>
+#include <QSharedPointer>
+#include <QString>
+#include <QStringList>
 
 // new dadgling pointer
 // smart poionter
@@ -12,6 +14,10 @@
 // QSharedPointer
 // dynamic array QList
 // fast lookup QSet
+// QMap
+// QStringList
+// Qlist z objektami
+
 
 // -------------------------------------------
 void lifecycle() {
@@ -83,6 +89,47 @@ void qSet_() { // do szybkich operacji na zbiorach nieposortowanych, dodawanie z
     qInfo() << tab << tab.contains("bbb");
 }
 // -------------------------------------------
+void qMap_() { // tablica dwuwymiarowa przeszukiwana po kluczach albo wartościach a nie po indeksie, automatyczne sortowana
+    QMap<QString, int> mapa;
+    mapa.insert("asd", 12);
+    mapa.insert("agdfsd", 212);
+    mapa.insert("werasd", 4512);
+    mapa.insert("23asd", 152);
+    mapa.insert("56asd", 1322);
+    qInfo() << mapa;              // cała mapa
+    qInfo() << mapa.keys();       // wszystkie klucze
+    qInfo() << mapa.key(212);     // odzczyt klucza w/g wartości
+    qInfo() << mapa.values();     // wszystkie wartości
+    qInfo() << mapa.value("asd"); // odczyt wartości w/g klucza
+    qInfo() << mapa.keys().at(0); // odzcyt wartości w/g indeksu posortowanej mapy
+    qInfo() << mapa["23asd"];     // odczyt wartości w/g klucza
+}
+// -------------------------------------------
+void qStringList_() { // zaawansowana tablica stringów QList
+    QString str("qqq dfoigj serpot [aposdkf[ 9879 3420590 gvnosdf twrdcwtyr odfguihod");
+    QStringList lista = str.split(' ');
+    qInfo() << str;
+    qInfo() << lista;
+    QString fromList = lista.join(";");
+    qInfo() << fromList;
+    lista.sort();
+    qInfo() << lista;
+}
+// -------------------------------------------
+void qListObj_() {
+    QList<Test *> lista;
+    lista.append(new Test());
+    lista.append(new Test());
+    lista.append(new Test());
+    lista.append(new Test());
+    lista.append(new Test());
+
+
+    qDeleteAll(lista); //usuwa objekty z całej listy
+    lista.clear(); // usuwa wskaźniki które pokazywały na nie istniejące już obiekty
+}
+// -------------------------------------------
+// -------------------------------------------
 // -------------------------------------------
 // -------------------------------------------
 // -------------------------------------------
@@ -97,7 +144,10 @@ int main(int argc, char *argv[]) {
     // qScopedPointer_();
     // qSharedPointer_();
     // qList_();
-    qSet_();
+    // qSet_();
+    // qMap_();
+    // qStringList_();
+    qListObj_();
 
     return a.exec();
 }
