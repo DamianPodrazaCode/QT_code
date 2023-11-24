@@ -11,6 +11,7 @@
 #include <QSharedPointer>
 #include <QString>
 #include <QStringList>
+#include <QTextStream>
 
 // new dadgling pointer
 // smart poionter
@@ -24,6 +25,7 @@
 // QMap z objektami
 // QSettings -> zapis odczyt ustawień programu na dysku
 // QIODevice
+// qFileStreams
 
 // -------------------------------------------
 void lifecycle() {
@@ -235,6 +237,30 @@ void qiodevice_() {
     }
 }
 // -------------------------------------------
+void write(QFile &file) {
+    if (!file.isWritable()) {
+        qInfo() << "Unable to write to file! " << file.errorString();
+    }
+}
+
+void read(QFile &file) {
+    if (!file.isReadable()) {
+        qInfo() << "Unable to read to file! " << file.errorString();
+    }
+}
+
+void qFileStreams_() {
+    QString fileName = "test.txt";
+    QFile file(fileName);
+    if (file.open(QIODevice::ReadWrite)) {
+        write(file);
+        read(file);
+
+        file.close();
+    } else {
+        qInfo() << "Open file error. " << file.errorString();
+    }
+}
 // -------------------------------------------
 // -------------------------------------------
 
@@ -253,7 +279,8 @@ int main(int argc, char *argv[]) {
     // qListObj_();
     // qMapObj_();
     // qSettings_();
-    qiodevice_();
+    // qiodevice_();
+    qFileStreams_();
 
     return a.exec();
 }
