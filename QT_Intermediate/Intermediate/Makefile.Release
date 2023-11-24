@@ -387,7 +387,8 @@ release/main.o: main.cpp test.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qsettings.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/QSharedPointer \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/QString \
-		C:/Qt/6.6.0/mingw_64/include/QtCore/QStringList
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QStringList \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QTextStream
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\main.o main.cpp
 
 release/test.o: test.cpp test.h \

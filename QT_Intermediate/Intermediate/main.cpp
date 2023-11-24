@@ -12,6 +12,8 @@
 #include <QString>
 #include <QStringList>
 #include <QTextStream>
+#include <QThread>
+#include <QDataStream>
 
 // new dadgling pointer
 // smart poionter
@@ -25,7 +27,8 @@
 // QMap z objektami
 // QSettings -> zapis odczyt ustawień programu na dysku
 // QIODevice
-// qFileStreams
+// qFileStreams - QTextStream
+// qFileStreams - QDataStream
 
 // -------------------------------------------
 void lifecycle() {
@@ -237,22 +240,48 @@ void qiodevice_() {
     }
 }
 // -------------------------------------------
+namespace qFileStreams {
+
 void write(QFile &file) {
     if (!file.isWritable()) {
         qInfo() << "Unable to write to file! " << file.errorString();
+        return;
     }
-}
+    QTextStream stream(&file);
+    stream.setEncoding(QStringConverter::LastEncoding);
 
+    // stream.seek(file.size());
+
+    stream << QDateTime::currentDateTime().toString() << "\r\n";
+    QThread::msleep(500);
+    stream << QDateTime::currentDateTime().toString() << "\r\n";
+    QThread::msleep(500);
+    stream << QDateTime::currentDateTime().toString() << "\r\n";
+    QThread::msleep(500);
+    stream << QDateTime::currentDateTime().toString() << "\r\n";
+}
 void read(QFile &file) {
     if (!file.isReadable()) {
         qInfo() << "Unable to read to file! " << file.errorString();
+        return;
+    }
+
+    QTextStream stream(&file);
+    stream.seek(0);
+
+    while (!stream.atEnd()) {
+        qInfo() << stream.readLine();
     }
 }
 
 void qFileStreams_() {
     QString fileName = "test.txt";
     QFile file(fileName);
+    file.remove();
+
     if (file.open(QIODevice::ReadWrite)) {
+        QTextStream stream(&file);
+        qInfo() << "Encoding : " << stream.encoding();
         write(file);
         read(file);
 
@@ -261,6 +290,82 @@ void qFileStreams_() {
         qInfo() << "Open file error. " << file.errorString();
     }
 }
+
+} // namespace qFileStreams
+// -------------------------------------------
+namespace qFileDataStreams {
+
+bool write(QString fileName) {
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly)) {
+        qInfo() << file.errorString();
+        return false;
+    }
+
+    QDataStream stream(&file);
+    stream.setVersion(QDataStream::Qt_6_6);
+
+    int intData = 56;
+    QString strData = "sdfgklsdlfkgsl";
+    double dData = 1.23456;
+    qint64 i64Data = 4235234534;
+    float fData = 5.4323;
+    qInfo() << intData << strData << dData << i64Data << fData;
+
+    stream << intData << strData << dData << i64Data << fData;
+
+    if (!file.flush()) {
+        qInfo() << file.errorString();
+        file.close();
+        return false;
+    }
+
+    qInfo() << "File written";
+    file.close();
+    return true;
+}
+
+bool read(QString fileName) {
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly)) {
+        qInfo() << file.errorString();
+        return false;
+    }
+
+    QDataStream stream(&file);
+    if (stream.version() != QDataStream::Qt_6_6) {
+        qInfo() << "Wrong file version.";
+        file.close();
+        return false;
+    }
+
+    int intData;
+    QString strData;
+    double dData;
+    qint64 i64Data;
+    float fData;
+
+    stream >> intData;
+    stream >> strData;
+    stream >> dData;
+    stream >> i64Data;
+    stream >> fData;
+
+    file.close();
+
+    qInfo() << intData << strData << dData << i64Data << fData;
+
+    return true;
+}
+
+void qFileDataStreams_() {
+    QString fileName = "test.txt";
+
+    if (write(fileName))
+        read(fileName);
+}
+
+} // namespace qFileStreams
 // -------------------------------------------
 // -------------------------------------------
 
@@ -280,7 +385,8 @@ int main(int argc, char *argv[]) {
     // qMapObj_();
     // qSettings_();
     // qiodevice_();
-    qFileStreams_();
+    //qFileStreams::qFileStreams_();
+    qFileDataStreams::qFileDataStreams_();
 
     return a.exec();
 }
