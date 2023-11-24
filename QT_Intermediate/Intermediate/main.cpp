@@ -17,6 +17,8 @@
 #include <QStringList>
 #include <QTextStream>
 #include <QThread>
+#include <QStorageInfo>
+#include <QLockFile>
 
 // new dadgling pointer
 // smart poionter
@@ -33,6 +35,9 @@
 // qFileStreams - QTextStream
 // qFileStreams - QDataStream
 // dir
+// fileinfo
+// storageinfo
+// lockFile
 
 // -------------------------------------------
 void lifecycle() {
@@ -371,6 +376,25 @@ void qFileDataStreams_() {
 
 } // namespace qFileDataStreams
 // -------------------------------------------
+void listDirR(QDir &root) {
+    qInfo() << "--------- Listing R---------";
+    foreach (QFileInfo fi, root.entryInfoList(QDir::AllEntries | QDir::NoDotAndDotDot, QDir::Name)) {
+        if (fi.isDir()) {
+            qInfo() << "Dir " << fi.filePath();
+        }
+
+        if (fi.isDir()) {
+            QDir child(fi.filePath());
+            qInfo() << "Inspecting " << child.absolutePath();
+            listDirR(child);
+        }
+
+        if (fi.isFile()) {
+            qInfo() << "File " << fi.filePath();
+        }
+    }
+}
+
 void listDir(QDir &root) {
     qInfo() << "--------- Listing ---------";
     foreach (QFileInfo fi, root.entryInfoList(QDir::Filter::Dirs, QDir::Name)) {
@@ -390,10 +414,71 @@ void dir_() {
     listDir(dir);
     dir.rmdir("aaa");
     listDir(dir);
+    qInfo() << "";
+    listDirR(dir);
 }
 // -------------------------------------------
+
+void fileinfo_(QString path) {
+    qInfo() << "List:" << path;
+    QDir dir(path);
+    QFileInfoList dirs = dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot);
+    QFileInfoList files = dir.entryInfoList(QDir::Files);
+
+    foreach (QFileInfo fi, dirs) {
+        qInfo() << fi.fileName();
+    }
+    foreach (QFileInfo fi, files) {
+        qInfo() << fi.fileName();
+        qInfo() << fi.size();
+        qInfo() << fi.birthTime();
+        qInfo() << fi.lastModified();
+        qInfo() << fi.lastRead();
+    }
+    foreach (QFileInfo fi, dirs) {
+        fileinfo_(fi.absoluteFilePath());
+    }
+}
 // -------------------------------------------
+void storageInfo_() {
+    qInfo() << QStorageInfo::mountedVolumes();
+
+    foreach (QStorageInfo storage, QStorageInfo::mountedVolumes()) {
+        qInfo() << storage.displayName();
+        qInfo() << storage.fileSystemType();
+        qInfo() << storage.bytesTotal();
+        qInfo() << storage.bytesAvailable();
+        qInfo() << storage.bytesFree();
+        qInfo() << storage.device();
+        qInfo() << storage.isRoot();
+        qInfo() << storage.blockSize();
+    }
+
+    QStorageInfo root = QStorageInfo::root();
+    qInfo() << "root" << root.rootPath();
+    QDir dir(root.rootPath());
+    foreach (QFileInfo fi, dir.entryInfoList(QDir::Dirs | QDir::NoDotAndDotDot)) {
+        qInfo() << fi.filePath();
+    }
+}
 // -------------------------------------------
+void lockFile_() {
+    QString path = QDir::currentPath() + QDir::separator() + "test.txt";
+    QFile file(path);
+    QLockFile lock(file.fileName() + "l");
+    lock.setStaleLockTime(5000);
+
+    if (lock.tryLock()) {
+        qInfo() << "lock";
+        // plik zablokowany na 5000ms
+        // po wykonaniy operacji odblkokować
+        // lock.unlock();
+    } else {
+        qInfo() << "no lock";
+    }
+      qInfo() << "done";
+    lock.unlock();
+}
 // -------------------------------------------
 // -------------------------------------------
 // -------------------------------------------
@@ -418,7 +503,10 @@ int main(int argc, char *argv[]) {
     // qiodevice_();
     // qFileStreams::qFileStreams_();
     // qFileDataStreams::qFileDataStreams_();
-    dir_();
+    // dir_();
+    // fileinfo_("d:/145_GPS/");
+    // storageInfo_();
+    lockFile_();
 
     return a.exec();
 }
