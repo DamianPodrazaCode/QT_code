@@ -1,8 +1,12 @@
 #include "test.h"
 #include <QBuffer>
 #include <QCoreApplication>
+#include <QDataStream>
 #include <QDateTime>
+#include <QDir>
 #include <QFile>
+#include <QFileInfo>
+#include <QFileInfoList>
 #include <QList>
 #include <QMap>
 #include <QScopedPointer>
@@ -13,7 +17,6 @@
 #include <QStringList>
 #include <QTextStream>
 #include <QThread>
-#include <QDataStream>
 
 // new dadgling pointer
 // smart poionter
@@ -29,6 +32,7 @@
 // QIODevice
 // qFileStreams - QTextStream
 // qFileStreams - QDataStream
+// dir
 
 // -------------------------------------------
 void lifecycle() {
@@ -320,7 +324,7 @@ bool write(QString fileName) {
         return false;
     }
 
-    qInfo() << "File written";
+    qInfo() << "Close file.";
     file.close();
     return true;
 }
@@ -365,7 +369,34 @@ void qFileDataStreams_() {
         read(fileName);
 }
 
-} // namespace qFileStreams
+} // namespace qFileDataStreams
+// -------------------------------------------
+void listDir(QDir &root) {
+    qInfo() << "--------- Listing ---------";
+    foreach (QFileInfo fi, root.entryInfoList(QDir::Filter::Dirs, QDir::Name)) {
+        if (fi.isDir()) {
+            qInfo() << fi.absoluteFilePath();
+        }
+    }
+}
+void dir_() {
+    QDir dir(QCoreApplication::applicationDirPath());
+    qInfo() << dir.dirName();
+    qInfo() << dir.absolutePath();
+    dir.cdUp();
+    qInfo() << dir.absolutePath();
+    listDir(dir);
+    dir.mkdir("aaa");
+    listDir(dir);
+    dir.rmdir("aaa");
+    listDir(dir);
+}
+// -------------------------------------------
+// -------------------------------------------
+// -------------------------------------------
+// -------------------------------------------
+// -------------------------------------------
+// -------------------------------------------
 // -------------------------------------------
 // -------------------------------------------
 
@@ -385,8 +416,9 @@ int main(int argc, char *argv[]) {
     // qMapObj_();
     // qSettings_();
     // qiodevice_();
-    //qFileStreams::qFileStreams_();
-    qFileDataStreams::qFileDataStreams_();
+    // qFileStreams::qFileStreams_();
+    // qFileDataStreams::qFileDataStreams_();
+    dir_();
 
     return a.exec();
 }
