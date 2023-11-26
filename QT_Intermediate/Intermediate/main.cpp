@@ -8,17 +8,18 @@
 #include <QFileInfo>
 #include <QFileInfoList>
 #include <QList>
+#include <QLockFile>
 #include <QMap>
+#include <QRandomGenerator>
 #include <QScopedPointer>
 #include <QSet>
 #include <QSettings>
 #include <QSharedPointer>
+#include <QStorageInfo>
 #include <QString>
 #include <QStringList>
 #include <QTextStream>
 #include <QThread>
-#include <QStorageInfo>
-#include <QLockFile>
 
 // new dadgling pointer
 // smart poionter
@@ -38,6 +39,7 @@
 // fileinfo
 // storageinfo
 // lockFile
+// QRandomGenerator, ASCII, UFT8 16 32, BASE64, HEX
 
 // -------------------------------------------
 void lifecycle() {
@@ -476,10 +478,41 @@ void lockFile_() {
     } else {
         qInfo() << "no lock";
     }
-      qInfo() << "done";
+    qInfo() << "done";
     lock.unlock();
 }
 // -------------------------------------------
+void randomGenerator_() {
+    QString data;
+    for (int i = 0; i < 10; ++i) {
+        int gen = QRandomGenerator::global()->bounded(0xffff);
+        data.append(QChar(gen));
+    }
+
+    qInfo() << "QString utf16 " << data;
+    qInfo() << "QString toLatin1 " << data.toLatin1();
+    qInfo() << "QString toUtf8 " << data.toUtf8();
+    qInfo() << "QString toStdString " << data.toStdString();
+    qInfo() << "QString toStdU16String " << data.toStdU16String();
+    qInfo() << "QString toStdU32String " << data.toStdU32String();
+    qInfo() << "QString toStdWString " << data.toStdWString();
+    qInfo() << "QString toLocal8Bit " << data.toLocal8Bit();
+    qInfo() << "QString toUcs4 " << data.toUcs4();
+    qInfo() << "";
+
+    QString qstr = "std string\r\n";
+    qInfo() << "QString " << qstr;
+    QByteArray stdStr = qstr.toLatin1();
+    qInfo() << "String " << stdStr;
+    QByteArray encoded = stdStr.toBase64();
+    qInfo() << "String to encoded base64 " << encoded;
+    QByteArray hex = stdStr.toHex();
+    qInfo() << "String to encoded hex " << hex;
+    QByteArray decoded = QByteArray::fromBase64(encoded);
+    qInfo() << "QByteArray from Base64 " << decoded;
+    QByteArray decodedHex = QByteArray::fromHex(hex);
+    qInfo() << "QByteArray from HEX " << decodedHex;
+}
 // -------------------------------------------
 // -------------------------------------------
 // -------------------------------------------
@@ -506,7 +539,8 @@ int main(int argc, char *argv[]) {
     // dir_();
     // fileinfo_("d:/145_GPS/");
     // storageInfo_();
-    lockFile_();
+    // lockFile_();
+    randomGenerator_();
 
     return a.exec();
 }

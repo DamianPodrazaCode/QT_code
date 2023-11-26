@@ -372,23 +372,37 @@ debug/main.o: main.cpp test.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qpromise.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qvariant.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/q23utility.h \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QDataStream \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/QDateTime \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qdatetime.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qcalendar.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qlocale.h \
-		C:/Qt/6.6.0/mingw_64/include/QtCore/QFile \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QDir \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qdir.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qfile.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qfiledevice.h \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qfileinfo.h \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qtimezone.h \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QFile \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QFileInfo \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QFileInfoList \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/QList \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QLockFile \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qlockfile.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/QMap \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QRandomGenerator \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qrandom.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/QScopedPointer \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/QSet \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/QSettings \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/qsettings.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/QSharedPointer \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QStorageInfo \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/qstorageinfo.h \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/QString \
 		C:/Qt/6.6.0/mingw_64/include/QtCore/QStringList \
-		C:/Qt/6.6.0/mingw_64/include/QtCore/QTextStream
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QTextStream \
+		C:/Qt/6.6.0/mingw_64/include/QtCore/QThread
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o main.cpp
 
 debug/test.o: test.cpp test.h \
