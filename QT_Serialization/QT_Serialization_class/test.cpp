@@ -9,19 +9,24 @@ Test::~Test() {
 }
 
 void Test::fill() {
-    map.insert("1", "q");
-    map.insert("2", "w");
-    map.insert("3", "e");
-    map.insert("4", "r");
-    map.insert("5", "t");
-    map.insert("6", "y");
-    map.insert("7", "u");
+    m_map.insert("1", "q");
+    m_map.insert("2", "w");
+    m_map.insert("3", "e");
+    m_map.insert("4", "r");
+    m_map.insert("5", "t");
+    m_map.insert("6", "y");
+    m_map.insert("7", "u");
+    m_name = "tester";
 }
 
-QString Test::name() const {
+QMap<QString, QString> Test::map() {
+    return m_map;
+}
+
+QString Test::name() {
     return m_name;
 }
 
-void Test::setName(const QString& newName) {
+void Test::setName(QString& newName) {
     m_name = newName;
 }

@@ -1,9 +1,9 @@
+#include "test.h"
 #include <QCoreApplication>
 #include <QDataStream>
 #include <QDebug>
 #include <QDir>
 #include <QFile>
-#include "test.h"
 
 bool saveFile(Test *t, QString path) {
     QFile file(path);
@@ -12,6 +12,8 @@ bool saveFile(Test *t, QString path) {
 
     QDataStream out(&file);
     out.setVersion(QDataStream::Qt_6_6);
+
+    out << *t;
 
     file.close();
     return true;
@@ -29,7 +31,14 @@ bool loadFile(QString path) {
         return false;
     }
 
+    Test t;
+    in >> t;
+
     file.close();
+
+    qInfo() << t.name();
+    qInfo() << t.map();
+
     return true;
 }
 
@@ -38,14 +47,10 @@ int main(int argc, char *argv[]) {
 
     QString path = "test.txt";
     Test t;
-    qInfo() << t.map;
     t.fill();
-    qInfo() << t.map;
-
-    //    if (saveFile(&t, path)) {
-//        loadFile(path);
-//    }
-
+    if (saveFile(&t, path)) {
+        loadFile(path);
+    }
 
     return a.exec();
 }
