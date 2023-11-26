@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QTextStream>
 
+// twirzenie pliku do testu
 bool makeFile(QString path) {
     QFile file(path);
     if (file.open(QIODevice::WriteOnly)) {
@@ -19,12 +20,14 @@ bool makeFile(QString path) {
     return false;
 }
 
+// zwraca stringa z nagłówkiem
 QByteArray getHeader() {
     QByteArray header;
     header.append("@!~!@");
     return header;
 }
 
+// compresuje do pliku w postaci >nagłówek<>dane skompresowane o rozmiarze size<>nagłówek<>dane....
 bool compressFile(QString originalFile, QString newFile) {
     QFile oFile(originalFile);
     QFile nFile(newFile);
@@ -49,7 +52,8 @@ bool compressFile(QString originalFile, QString newFile) {
     return true;
 }
 
-bool deompressFile(QString originalFile, QString newFile) {
+// dekompresja
+bool decompressFile(QString originalFile, QString newFile) {
     QFile oFile(originalFile);
     QFile nFile(newFile);
     QByteArray header = getHeader();
@@ -60,6 +64,36 @@ bool deompressFile(QString originalFile, QString newFile) {
         return false;
     int size = 1024;
 
+    QByteArray buffer = oFile.peek(size); // odczyt do buffer bez przesuwania wskaźnika w pliku
+    if (!buffer.startsWith(header)) {     // sprawdzenie czy bufor zaczyna się od danego nagłóWka
+        qCritical() << "to nie plik do dekompresji";
+        oFile.close();
+        nFile.close();
+        return false;
+    }
+
+    oFile.seek(header.length()); // ustawienie za pierwszym nagłówkiem
+
+    while (!oFile.atEnd()) {
+        buffer = oFile.peek(size);             // odczyt do buffer bez przesuwania wskaźnika w pliku
+        qint64 index = buffer.indexOf(header); // index na następnym nagłówku, czyli ilość danych do odzcytania
+        qInfo() << "head found at:" << index;
+        if (index > -1) { // jeżeli jest następny nagłówek
+            // jest nagłówek
+            qint64 maxbytes = index; // ilość danych do odczytania
+            qInfo() << "reading :" << maxbytes;
+            buffer = oFile.read(maxbytes); // odczytanie danych
+            oFile.read(header.length());   // odczytanie następnego nagłóWka i przesunięcie wskaźnika
+        } else {
+            // niema nagłówka
+            qInfo() << "read all no header";
+            buffer = oFile.readAll(); // odczyt końcówki pliku
+        }
+
+        QByteArray decompressed = qUncompress(buffer);
+        nFile.write(decompressed);
+        nFile.flush();
+    }
 
     oFile.close();
     nFile.close();
@@ -69,6 +103,20 @@ bool deompressFile(QString originalFile, QString newFile) {
 
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
+
+    QString originalFile = "original.txt";
+    QString compressedFile = "compressed.txt";
+    QString decompressedFile = "decompressed.txt";
+
+    if (makeFile(originalFile)) {
+        qInfo() << "makeFile";
+        if (compressFile(originalFile, compressedFile)) {
+            qInfo() << "compressedFile";
+            if (decompressFile(compressedFile, decompressedFile)) {
+                qInfo() << "decompressedFile";
+            }
+        }
+    }
 
     return a.exec();
 }
