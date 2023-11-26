@@ -3,8 +3,9 @@
 #include <QDebug>
 #include <QDir>
 #include <QFile>
+#include "test.h"
 
-bool saveFile(QString path) {
+bool saveFile(Test *t, QString path) {
     QFile file(path);
     if (!file.open(QIODevice::WriteOnly))
         return false;
@@ -23,7 +24,7 @@ bool loadFile(QString path) {
 
     QDataStream in(&file);
     if (in.version() != QDataStream::Qt_6_6) {
-        qCritical() << "wersjia nie pasuje";
+        qCritical() << "wersja nie pasuje";
         file.close();
         return false;
     }
@@ -34,6 +35,17 @@ bool loadFile(QString path) {
 
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
+
+    QString path = "test.txt";
+    Test t;
+    qInfo() << t.map;
+    t.fill();
+    qInfo() << t.map;
+
+    //    if (saveFile(&t, path)) {
+//        loadFile(path);
+//    }
+
 
     return a.exec();
 }
