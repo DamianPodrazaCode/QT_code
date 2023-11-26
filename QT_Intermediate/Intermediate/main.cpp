@@ -21,7 +21,7 @@
 #include <QTextStream>
 #include <QThread>
 
-// new dadgling pointer
+// new - dadgling pointer
 // smart poionter
 // QScopedPointer
 // QSharedPointer
@@ -39,7 +39,7 @@
 // fileinfo
 // storageinfo
 // lockFile
-// QRandomGenerator, ASCII, UFT8 16 32, BASE64, HEX
+// QRandomGenerator, ASCII, UFT8 16 32, BASE64, HEX, encoding, decoding
 
 // -------------------------------------------
 void lifecycle() {
