@@ -1,4 +1,5 @@
 #include "test.h"
+#include "proccomm.h"
 #include <QCoreApplication>
 #include <QDebug>
 #include <QList>
@@ -99,7 +100,12 @@ void qProcessExe_() {
     qInfo() << proc.exitCode();
 }
 
+ProcComm cmd;
 void qProcessCommand_() {
+    // ProcComm cmd;
+    cmd.action(QByteArray("arp"));
+    cmd.action(QByteArray("calc"));
+    cmd.action(QByteArray("d:/__GitHub/DataVisualizer/DataVisualizer/release/DataVisualizer.exe"));
 }
 
 int main(int argc, char *argv[]) {
@@ -113,7 +119,7 @@ int main(int argc, char *argv[]) {
     // qSystemInfo_();
     // qProcess_();
     // qProcessExe_();
-    qProcessCommand_();
+    // qProcessCommand_();
 
     return a.exec();
 }
