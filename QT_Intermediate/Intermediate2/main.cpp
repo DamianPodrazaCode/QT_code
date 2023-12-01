@@ -2,6 +2,7 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QList>
+#include <QProcess>
 #include <QSysInfo>
 
 // qDeleteAll dla klas
@@ -12,6 +13,7 @@
 // biblioteka BOOST <<<<<<<<<<<<<<<< open source <<<<<<<<<<<<<<<
 // qSystemInfo
 // qProcess
+// qProcess execute
 
 void qDeleteAll_() {
     QList<test *> lTest;
@@ -85,7 +87,19 @@ void qSystemInfo_() {
 }
 
 void qProcess_() {
+    QProcess proc;
+    proc.start("notepad.exe");
+    qInfo() << proc.processId();
+    proc.waitForFinished();
+}
 
+void qProcessExe_() {
+    QProcess proc;
+    proc.execute("calc.exe");
+    qInfo() << proc.exitCode();
+}
+
+void qProcessCommand_() {
 }
 
 int main(int argc, char *argv[]) {
@@ -97,7 +111,9 @@ int main(int argc, char *argv[]) {
     // compareCont_();
     // copyCont_();
     // qSystemInfo_();
-    qProcess_();
+    // qProcess_();
+    // qProcessExe_();
+    qProcessCommand_();
 
     return a.exec();
 }
