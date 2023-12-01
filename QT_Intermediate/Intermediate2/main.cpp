@@ -2,12 +2,16 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QList>
+#include <QSysInfo>
 
 // qDeleteAll dla klas
 // wypełnianie kontenerów
 // sortowanie w kontenerach
 // porównywanie kontenerów
 // kopiowanie kontenerów
+// biblioteka BOOST <<<<<<<<<<<<<<<< open source <<<<<<<<<<<<<<<
+// qSystemInfo
+// qProcess
 
 void qDeleteAll_() {
     QList<test *> lTest;
@@ -65,14 +69,35 @@ void copyCont_() {
     qInfo() << std::equal(list1.begin(), list1.end(), list2.begin());
 }
 
+void qSystemInfo_() {
+    QSysInfo sys;
+    qInfo() << sys.currentCpuArchitecture();
+    qInfo() << sys.buildCpuArchitecture();
+    qInfo() << sys.buildAbi();
+    qInfo() << sys.kernelType();
+    qInfo() << sys.productVersion();
+    qInfo() << sys.machineHostName();
+    qInfo() << sys.prettyProductName();
+    qInfo() << sys.machineUniqueId();
+    qInfo() << sys.bootUniqueId();
+    qInfo() << sys.kernelVersion();
+    qInfo() << sys.productType();
+}
+
+void qProcess_() {
+
+}
+
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
 
-           // qDeleteAll_();
-           // fillCont_();
-           // sortCont_();
-           // compareCont_();
-    copyCont_();
+    // qDeleteAll_();
+    // fillCont_();
+    // sortCont_();
+    // compareCont_();
+    // copyCont_();
+    // qSystemInfo_();
+    qProcess_();
 
     return a.exec();
 }
