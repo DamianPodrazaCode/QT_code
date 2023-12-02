@@ -2,7 +2,7 @@
 #include <QCoreApplication>
 #include <QDebug>
 #include <QThread>
-#include <QThreadPool>>
+#include <QThreadPool>
 
 int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
