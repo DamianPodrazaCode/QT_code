@@ -16,7 +16,7 @@ public:
 signals:
 
 public slots:
-    void run();
+    void run(); // virtualna, refaktoryzacja z QRunnable
 };
 
 #endif // TASK_H
