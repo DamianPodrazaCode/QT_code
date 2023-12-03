@@ -15,4 +15,8 @@ void Counter::start() {
         QThread::currentThread()->msleep(value);
         qInfo() << QThread::currentThread()->objectName() << "Complete";
     }
+    qInfo() << this << "Complited";
+    deleteLater();
+
+    QThread::currentThread()->quit();
 }
