@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 
     // timer nie uruchamia sie w osobnym wątku
     QTimer timer;
-    timer.singleShot(3000, &test); //funkcja uruchamia się po 3 sec. nie blokując głównego wątku
+    timer.singleShot(3000, test); //funkcja uruchamia się po 3 sec. nie blokując głównego wątku
 
     qInfo() << "main end" << QThread::currentThread();
 
