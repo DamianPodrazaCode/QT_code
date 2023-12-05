@@ -14,9 +14,9 @@ int main(int argc, char *argv[]) {
     qInfo() << pool->maxThreadCount() << " - max threads.";
 
     for (int i = 0; i < 100; ++i) {
-        Counter *c = new Counter();
-        c->setAutoDelete(true);
-        pool->start(c);
+        Counter *c = new Counter(); //stworzenie objektu z wątkiem
+        c->setAutoDelete(true); // żeby nie zostały śmieci, i nie blokować wątków jak się kończą
+        pool->start(c); // uruchomienie wątku
     }
 
     return a.exec();

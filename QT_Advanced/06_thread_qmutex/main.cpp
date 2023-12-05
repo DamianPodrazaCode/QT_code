@@ -19,6 +19,7 @@ int main(int argc, char *argv[]) {
 
     for (int i = 0; i < 100; ++i) {
         Counter *c = new Counter(&mutex, &value);
+        qInfo() << "Counter nr:" << i << "Counter adress:" << c;
         c->setAutoDelete(true);
         pool->start(c);
     }

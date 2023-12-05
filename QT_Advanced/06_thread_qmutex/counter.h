@@ -5,11 +5,12 @@
 #include <QRunnable>
 #include <QThread>
 #include <QMutex>
+#include <QMutexLocker>>
 
 class Counter : public QRunnable {
 public:
     Counter(QMutex *mutex, int *value);
-
+    ~Counter();
     // QRunnable interface
 
 public:
