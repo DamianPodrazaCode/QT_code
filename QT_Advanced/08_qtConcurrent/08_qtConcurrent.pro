@@ -1,4 +1,5 @@
 QT = core
+QT += concurrent
 
 CONFIG += c++17 cmdline
 
