@@ -5,7 +5,7 @@ int main(int argc, char *argv[]) {
     QCoreApplication a(argc, argv);
 
     Client client;
-    client.connectToHost("www.voidrealms.com", 80);
+    client.connectToHost("www.httpbin.org", 80);
 
     return a.exec();
 }

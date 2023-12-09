@@ -6,6 +6,22 @@ Client::Client(QObject *parent) : QObject{parent} {
     connect(&socket, &QTcpSocket::stateChanged, this, &Client::stateChanged);
     connect(&socket, &QTcpSocket::readyRead, this, &Client::readRead);
     connect(&socket, &QTcpSocket::errorOccurred, this, &Client::error);
+
+#define GO_PROXY
+#ifdef GO_PROXY
+    // proxy
+    QNetworkProxy proxy(QNetworkProxy::HttpProxy, "20.111.54.16", 80);
+
+    // autoryzacja proxy jeżeli konieczna
+    // proxy.setUser("user");
+    // proxy.setPassword("pass");
+
+    // dopięcie proxy do aplikacji
+    QNetworkProxy::setApplicationProxy(proxy);
+    // dopięcie proxy do soketu tcp
+    socket.setProxy(proxy);
+
+#endif
 }
 
 void Client::connectToHost(QString host, quint16 port) {
@@ -25,7 +41,16 @@ void Client::disconnect() {
 void Client::connected() {
     qInfo() << "Connected:";
     qInfo() << "Send:";
-    socket.write("HELLO\r\n");
+    // socket.write("//get\r\n");
+
+    QByteArray data;
+    data.append("GET /get HTTP/1.1\r\n");
+    data.append("User-Agent: Mozilla/4.0 (compatibile; MSIE 8.0; Windows NT 6.0; Trident/4.0)\r\n");
+    data.append("Host: local\r\n");
+    data.append("Connection: Close\r\n");
+    data.append("\r\n");
+    socket.write(data);
+    socket.waitForBytesWritten();
 }
 
 void Client::disconnected() {
