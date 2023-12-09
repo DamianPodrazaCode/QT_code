@@ -9,7 +9,9 @@ Client::Client(QObject *parent) : QObject{parent} {
 
 #define GO_PROXY
 #ifdef GO_PROXY
-    // proxy
+    // proxy - od strony serwera będzie widoczny adres proxy a nie mój publiczny
+    // https://free-proxy-list.net/
+    // https://httpbin.org/ - fajny serwer do testowania działania na tcp
     QNetworkProxy proxy(QNetworkProxy::HttpProxy, "20.111.54.16", 80);
 
     // autoryzacja proxy jeżeli konieczna
@@ -20,7 +22,6 @@ Client::Client(QObject *parent) : QObject{parent} {
     QNetworkProxy::setApplicationProxy(proxy);
     // dopięcie proxy do soketu tcp
     socket.setProxy(proxy);
-
 #endif
 }
 
