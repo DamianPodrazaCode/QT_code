@@ -1,11 +1,8 @@
 #include "client.h"
 
 Client::Client(QObject *parent) : QObject{parent} {
-    connect(&socket, &QTcpSocket::connected, this, &Client::connected);
-    connect(&socket, &QTcpSocket::disconnected, this, &Client::disconnected);
-    connect(&socket, &QTcpSocket::stateChanged, this, &Client::stateChanged);
-    connect(&socket, &QTcpSocket::readyRead, this, &Client::readRead);
-    connect(&socket, &QTcpSocket::errorOccurred, this, &Client::error);
+
+
     m_host = "";
     m_port = 0;
 
@@ -34,23 +31,33 @@ Client::~Client() {
 
 void Client::connectToHost(QString host, quint16 port) {
     qInfo() << Q_FUNC_INFO << QThread::currentThread();
-    if (socket.isOpen())
+    if (socket->isOpen())
         disconnect();
     qInfo() << "connecting to: " << host << " : " << port;
-    socket.connectToHost(host, port);
+    socket->connectToHost(host, port);
 }
 
 void Client::disconnect() {
     qInfo() << Q_FUNC_INFO << QThread::currentThread();
-    socket.close();
+    socket->close();
     // socket.waitForDisconnected();
 }
 
 void Client::run() {
     // tutaj startuje wątek Client-a
     qInfo() << Q_FUNC_INFO << QThread::currentThread();
-    connectToHost(m_host, m_port);
 
+    socket = new QTcpSocket(this);
+    connect(socket, &QTcpSocket::connected, this, &Client::connected);
+    connect(socket, &QTcpSocket::disconnected, this, &Client::disconnected);
+    connect(socket, &QTcpSocket::stateChanged, this, &Client::stateChanged);
+    connect(socket, &QTcpSocket::readyRead, this, &Client::readRead);
+    connect(socket, &QTcpSocket::errorOccurred, this, &Client::error);
+
+    connectToHost(m_host, m_port);
+    socket->waitForDisconnected(); // metoda blokująca
+    qInfo() << "complete";
+    deleteLater();
 
 }
 
@@ -58,7 +65,7 @@ void Client::connected() {
     qInfo() << Q_FUNC_INFO << QThread::currentThread();
     qInfo() << "Connected:";
     qInfo() << "Send:";
-    socket.write("HELLO\r\n");
+    socket->write("HELLO\r\n");
 
     // QByteArray data;
     // data.append("GET /get HTTP/1.1\r\n");
@@ -66,7 +73,7 @@ void Client::connected() {
     // data.append("Host: local\r\n");
     // data.append("Connection: Close\r\n");
     // data.append("\r\n");
-    // socket.write(data);
+    // socket->write(data);
     // socket.waitForBytesWritten();
 }
 
@@ -77,7 +84,7 @@ void Client::disconnected() {
 
 void Client::error(QAbstractSocket::SocketError socketError) {
     qInfo() << Q_FUNC_INFO << QThread::currentThread();
-    qInfo() << "ERROR : " << socketError << " " << socket.errorString();
+    qInfo() << "ERROR : " << socketError << " " << socket->errorString();
 }
 
 void Client::stateChanged(QAbstractSocket::SocketState socketState) {
@@ -88,8 +95,8 @@ void Client::stateChanged(QAbstractSocket::SocketState socketState) {
 
 void Client::readRead() {
     qInfo() << Q_FUNC_INFO << QThread::currentThread();
-    qInfo() << "data from : " << sender() << "bytes : " << socket.bytesAvailable();
-    qInfo() << "Data : " << socket.readAll();
+    qInfo() << "data from : " << sender() << "bytes : " << socket->bytesAvailable();
+    qInfo() << "Data : " << socket->readAll();
 }
 
 quint16 Client::port() const {

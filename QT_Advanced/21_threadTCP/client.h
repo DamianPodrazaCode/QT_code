@@ -36,7 +36,7 @@ private slots:
     void readRead();
 
 private:
-    QTcpSocket socket;
+    QTcpSocket *socket;
     QString m_host;
     quint16 m_port;
 };
