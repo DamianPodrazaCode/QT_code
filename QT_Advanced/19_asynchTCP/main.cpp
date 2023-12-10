@@ -8,6 +8,7 @@ int main(int argc, char *argv[]) {
 
     Client client;
     //client.connectToHost("www.httpbin.org", 80);
+    client.connectToHost("www.voidrealms.com", 80);
 
     qInfo() << "end main";
     return a.exec();
