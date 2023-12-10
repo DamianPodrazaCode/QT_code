@@ -13,6 +13,7 @@ void Worker::start() {
 
     timer = new QTimer(this);
     socket = new QUdpSocket(this);
+    loop = new QEventLoop(this);
 
     connect(timer, &QTimer::timeout, this, &Worker::timeout);
     connect(socket, &QUdpSocket::readyRead, this, &Worker::readReady);
@@ -24,12 +25,20 @@ void Worker::start() {
     }
     qInfo() << "Started UDP on" << socket->localAddress() << " : " << socket->localPort();
     broadcast();
+    loop->exec(); // block
 }
 
 void Worker::stop() {
     qInfo() << Q_FUNC_INFO << QThread::currentThread();
     timer->stop();
     socket->close();
+
+    if (loop) {
+        qInfo() << "stop event loop";
+        loop->quit();
+        delete loop;
+    }
+
     qInfo() << "Stopped";
     deleteLater();
 }

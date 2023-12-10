@@ -8,6 +8,7 @@
 #include <QTimer>
 #include <QUdpSocket>
 #include <QThread>
+#include <QEventLoop>
 
 class Worker : public QObject {
     Q_OBJECT
@@ -27,6 +28,7 @@ public slots:
 private:
     QUdpSocket *socket;
     QTimer *timer;
+    QEventLoop *loop;
     quint16 port = 2020;
     int counter = 0;
 };
