@@ -34,30 +34,34 @@ void Client::connectToHost(QString host, quint16 port) {
 }
 
 void Client::disconnect() {
+    qInfo() << Q_FUNC_INFO << QThread::currentThread();
     socket.close();
-    socket.waitForDisconnected();
+    // socket.waitForDisconnected();
 }
 
 void Client::connected() {
+    qInfo() << Q_FUNC_INFO << QThread::currentThread();
     qInfo() << "Connected:";
     qInfo() << "Send:";
-    // socket.write("//get\r\n");
+    socket.write("HELLO\r\n");
 
-    QByteArray data;
-    data.append("GET /get HTTP/1.1\r\n");
-    data.append("User-Agent: Mozilla/4.0 (compatibile; MSIE 8.0; Windows NT 6.0; Trident/4.0)\r\n");
-    data.append("Host: local\r\n");
-    data.append("Connection: Close\r\n");
-    data.append("\r\n");
-    socket.write(data);
-    socket.waitForBytesWritten();
+    // QByteArray data;
+    // data.append("GET /get HTTP/1.1\r\n");
+    // data.append("User-Agent: Mozilla/4.0 (compatibile; MSIE 8.0; Windows NT 6.0; Trident/4.0)\r\n");
+    // data.append("Host: local\r\n");
+    // data.append("Connection: Close\r\n");
+    // data.append("\r\n");
+    // socket.write(data);
+    // socket.waitForBytesWritten();
 }
 
 void Client::disconnected() {
+    qInfo() << Q_FUNC_INFO << QThread::currentThread();
     qInfo() << "Disconnected:";
 }
 
 void Client::error(QAbstractSocket::SocketError socketError) {
+    qInfo() << Q_FUNC_INFO << QThread::currentThread();
     qInfo() << "ERROR : " << socketError << " " << socket.errorString();
 }
 
@@ -68,6 +72,7 @@ void Client::stateChanged(QAbstractSocket::SocketState socketState) {
 }
 
 void Client::readRead() {
+    qInfo() << Q_FUNC_INFO << QThread::currentThread();
     qInfo() << "data from : " << sender() << "bytes : " << socket.bytesAvailable();
     qInfo() << "Data : " << socket.readAll();
 }
