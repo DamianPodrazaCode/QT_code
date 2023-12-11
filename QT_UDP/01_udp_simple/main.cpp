@@ -2,6 +2,9 @@
 
 #include <QApplication>
 #include <QNetworkProxy>
+#include <QNetworkDatagram>
+// test
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
