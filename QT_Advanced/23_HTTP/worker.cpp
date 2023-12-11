@@ -48,6 +48,7 @@ void Worker::encrypted(QNetworkReply* reply) {
 void Worker::finished(QNetworkReply* reply) {
     Q_UNUSED(reply);
     qInfo() << "finished";
+    reply->deleteLater();
 }
 
 void Worker::preSharedKeyAuthenticationRequired(QNetworkReply* reply, QSslPreSharedKeyAuthenticator* authenticator) {
