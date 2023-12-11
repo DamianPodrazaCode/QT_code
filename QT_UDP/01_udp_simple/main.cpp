@@ -3,8 +3,6 @@
 #include <QApplication>
 #include <QNetworkProxy>
 #include <QNetworkDatagram>
-// test
-//test2
 
 int main(int argc, char *argv[])
 {
