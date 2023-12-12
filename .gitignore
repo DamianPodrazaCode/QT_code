@@ -2,10 +2,14 @@ build*/
 release/
 debug/
 .qtc_clangd/
+bin/
 
 .qmake.stash
 Makefile
 Makefile*
+
+*user*
+user
 
 *.d
 *.slo
