@@ -43,4 +43,4 @@ Makefile*
 
 *.Debug
 *.Release
-*.user
+#*.user

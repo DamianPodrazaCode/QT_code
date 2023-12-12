@@ -1,7 +1,0 @@
-build*
-debug
-release
-.qtc_clangd
-Makefile
-Makefile*
-.qmake*
