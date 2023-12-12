@@ -3,7 +3,7 @@
 #include <QApplication>
 #include <QNetworkProxy>
 #include <QNetworkDatagram>
-//asdfa
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
