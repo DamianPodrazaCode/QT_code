@@ -10,7 +10,9 @@ bin_linux/
 Makefile
 Makefile*
 
+*user
 *.user
+
 *.d
 *.slo
 *.lo
