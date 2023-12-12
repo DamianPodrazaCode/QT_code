@@ -2,6 +2,7 @@ build*/
 release/
 debug/
 .qtc_clangd/
+bin/
 
 .qmake.stash
 Makefile
