@@ -32,5 +32,15 @@
 *.app
 
 build*/
+release/
+debug/
+.qtc_clangd/
+
+.qmake.stash
+
+Makefile
+Makefile*
 
 *.Debug
+*.Release
+*.user
