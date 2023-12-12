@@ -5,7 +5,7 @@
 #include <QRunnable>
 #include <QThread>
 #include <QMutex>
-#include <QMutexLocker>>
+#include <QMutexLocker>
 
 class Counter : public QRunnable {
 public:
