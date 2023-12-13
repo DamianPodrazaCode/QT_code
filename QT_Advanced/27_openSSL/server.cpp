@@ -70,6 +70,7 @@ void Server::socketError(QAbstractSocket::SocketError err) {
 }
 
 void Server::incomingConnection(qintptr handle) {
+    qInfo() << "incomming connection " << handle;
     QSslSocket *socket = new QSslSocket(this);
 
     connect(socket, &QSslSocket::disconnected, this, &Server::disconnected);
@@ -80,4 +81,19 @@ void Server::incomingConnection(qintptr handle) {
     connect(socket, &QSslSocket::peerVerifyError, this, &Server::peerVerifyError);
     connect(socket, QOverload<const QList<QSslError> &>::of(&QSslSocket::sslErrors), this, &Server::sslErrors);
     connect(socket, &QSslSocket::errorOccurred, this, &Server::socketError);
+
+    qInfo() << "Connected" << socket;
+    socket->setSocketDescriptor(handle);
+    socket->setLocalCertificate(certPath, QSsl::Pem);
+    socket->setPrivateKey(keyPath, QSsl::Rsa, QSsl::Pem);
+    socket->setPeerVerifyMode(QSslSocket::VerifyNone);
+
+    QList<QSslCertificate> localChain;
+    QSslCertificate cert;
+    cert.fromPath(certPath);
+    localChain.append(cert);
+    socket->setLocalCertificateChain(localChain);
+
+    socket->setProtocol(QSsl::SslProtocol::TlsV1_2);
+    socket->startServerEncryption();
 }
