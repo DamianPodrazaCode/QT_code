@@ -10,21 +10,21 @@ class Perc2in : public QObject {
     Q_OBJECT
 
 public:
-    explicit Perc2in(QObject *parent = nullptr);
+    explicit Perc2in(QObject *parent = nullptr, int inSize = 2);
 
-    void learn(QList<double> *in, int size, int count, double step);
+    void learn(QList<double> *in, double step);
     void showState();
     int get(double in1, double in2);
 
 private:
-    int out = 0; // wyjście
-    double in1;  // wejście 1
-    double in2;  // wejście 2
-
-    double w1;        // waga wejścia 1
-    double w2;        // waga wejścia 2
-    double wp;        // wartość progowa
-    double learnStep; // szybkość/dokładność uczenia
+    int out = 0;            // wyjście
+    double in1 = 0;         // wejście 1
+    double in2 = 0;         // wejście 2
+    int inSize = 2;         // ilość wejść
+    double w1 = 0;          // waga wejścia 1
+    double w2 = 0;          // waga wejścia 2
+    double wp = 0;          // wartość progowa
+    double learnStep = 0.1; // szybkość/dokładność uczenia
 
 signals:
 };
