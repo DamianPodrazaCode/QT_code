@@ -1,9 +1,9 @@
 #ifndef PERC2IN_H
 #define PERC2IN_H
 
+#include <QDebug>
 #include <QList>
 #include <QObject>
-#include <QDebug>
 #include <QRandomGenerator>
 
 class Perc2in : public QObject {
@@ -12,7 +12,7 @@ class Perc2in : public QObject {
 public:
     explicit Perc2in(QObject *parent = nullptr);
 
-    void learn(QList<double *> in, int size, int count, double step);
+    void learn(QList<double> *in, int size, int count, double step);
     void showState();
     int get(double in1, double in2);
 

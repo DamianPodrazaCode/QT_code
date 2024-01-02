@@ -1,14 +1,14 @@
 #include "perc2in.h"
 
-Perc2in::Perc2in(QObject *parent) : QObject{parent} {
+Perc2in::Perc2in(QObject* parent) : QObject{parent} {
     w1 = (QRandomGenerator::global()->bounded(100)) / 10;
     w2 = (QRandomGenerator::global()->bounded(100)) / 10;
     ws = (QRandomGenerator::global()->bounded(100)) / 10;
 }
 
-void Perc2in::learn(QList<double *> in, int size, int count, double step) {
+void Perc2in::learn(QList<double>* in, int size, int count, double step) {
     learnStep = step;
-    qInfo() << in;
+    qInfo() << *in << in;
 }
 
 void Perc2in::showState() {
