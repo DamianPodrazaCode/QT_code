@@ -17,14 +17,14 @@ public:
     int get(double in1, double in2);
 
 private:
-    int out = 0;
-    double in1;
-    double in2;
+    int out = 0; // wyjście
+    double in1;  // wejście 1
+    double in2;  // wejście 2
 
-    double w1;
-    double w2;
-    double ws;
-    double learnStep;
+    double w1;        // waga wejścia 1
+    double w2;        // waga wejścia 2
+    double wp;        // wartość progowa
+    double learnStep; // szybkość/dokładność uczenia
 
 signals:
 };
