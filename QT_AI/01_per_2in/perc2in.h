@@ -24,7 +24,7 @@ private:
     double w1 = 0;          // waga wejścia 1
     double w2 = 0;          // waga wejścia 2
     double wp = 0;          // wartość progowa
-    double learnStep = 0.1; // szybkość/dokładność uczenia
+    double learnStep = 0.1; // szybkość uczenia
 
 signals:
 };
